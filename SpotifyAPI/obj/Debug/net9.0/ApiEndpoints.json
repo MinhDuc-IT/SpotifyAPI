@@ -1,5 +1,41 @@
 [
   {
+    "ContainingType": "SpotifyAPI.Controllers.AdminController",
+    "Method": "GetAdminDashboard",
+    "RelativePath": "api/admin/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyAPI.Controllers.AuthController",
+    "Method": "SetCustomClaims",
+    "RelativePath": "api/auth/setCustomClaims",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SpotifyAPI.DTOs.TokenRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyAPI.Controllers.HomeController",
+    "Method": "GetHomeData",
+    "RelativePath": "api/home",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SpotifyAPI.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",
