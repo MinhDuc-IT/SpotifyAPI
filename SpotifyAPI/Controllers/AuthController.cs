@@ -80,7 +80,7 @@ namespace SpotifyAPI.Controllers
                 return BadRequest(new { status = "error", message = $"Invalid token: {ex.Message}" });
             }
         }
- 
+
 
         private async Task<User> GetOrCreateUser(Dictionary<string, object> newClaims)
         {
@@ -112,13 +112,6 @@ namespace SpotifyAPI.Controllers
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
             }
-            //else
-            //{
-            //    // Cập nhật thông tin mới nhất từ Firebase
-            //    user.LastLogin = DateTime.UtcNow;
-            //    user.DisplayName = firebaseName ?? user.DisplayName;
-            //    await _context.SaveChangesAsync();
-            //}
 
             return user;
         }

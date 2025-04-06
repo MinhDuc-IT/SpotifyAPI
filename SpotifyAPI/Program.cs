@@ -1,6 +1,8 @@
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SpotifyAPI.Data;
 using SpotifyAPI.Middleware;
 
@@ -21,6 +23,21 @@ FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.FromFile("reactnativeapp-7cd31-firebase-adminsdk-fbsvc-6d99501c1a.json"),
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://securetoken.google.com/reactnativeapp-7cd31";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = "https://securetoken.google.com/reactnativeapp-7cd31",
+            ValidateAudience = true,
+            ValidAudience = "reactnativeapp-7cd31",
+            ValidateLifetime = true,
+            //RoleClaimType = "roles" // Map the "roles" claim to Role claims
+        };
+    });
 
 builder.Services.AddCors(options =>
 {
@@ -49,11 +66,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("ExpoPolicy");
 
-app.UseMiddleware<FirebaseAuthenticationMiddleware>();
+//app.UseMiddleware<FirebaseAuthenticationMiddleware>();
 
 //app.UseHttpsRedirection();
 
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

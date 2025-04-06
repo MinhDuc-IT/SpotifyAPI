@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpotifyAPI.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/admin")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         [HttpGet("dashboard")]
