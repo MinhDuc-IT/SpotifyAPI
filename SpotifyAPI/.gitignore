@@ -8,6 +8,7 @@ reactnativeapp-7cd31-firebase-adminsdk-fbsvc-6d99501c1a.json
 /reactnativeapp-7cd31-firebase-adminsdk-fbsvc-6d99501c1a.json
 ../.vs
 obj/
+.vs/
 
 # User-specific files
 *.rsuser
