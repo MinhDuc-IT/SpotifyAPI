@@ -10,7 +10,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SpotifyAPI.Controllers.AuthController",
+    "ContainingType": "AuthController",
     "Method": "SetCustomClaims",
     "RelativePath": "api/auth/setCustomClaims",
     "HttpMethod": "POST",

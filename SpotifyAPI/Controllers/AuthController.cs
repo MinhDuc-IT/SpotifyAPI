@@ -1,119 +1,76 @@
 ﻿using FirebaseAdmin.Auth;
-using Google.Apis.Auth.OAuth2.Requests;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SpotifyAPI.Data;
 using SpotifyAPI.DTOs;
-using SpotifyAPI.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
+using SpotifyAPI.Services;
 
-namespace SpotifyAPI.Controllers
+[Route("api/auth")]
+[ApiController]
+public class AuthController : ControllerBase
 {
-    [Route("api/auth")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    private readonly IFirebaseAuthService _firebaseAuthService;
+    private readonly IUserService _userService;
+
+    public AuthController(
+        IFirebaseAuthService firebaseAuthService,
+        IUserService userService)
     {
-        private readonly SpotifyDbContext _context;
+        _firebaseAuthService = firebaseAuthService;
+        _userService = userService;
+    }
 
-        public AuthController(SpotifyDbContext context)
+    [HttpPost("setCustomClaims")]
+    public async Task<IActionResult> SetCustomClaims([FromBody] TokenRequestDTO request)
+    {
+        try
         {
-            _context = context;
+            // Xác thực token với Firebase
+            var decodedToken = await _firebaseAuthService.VerifyIdTokenAsync(request.IdToken);
+            var existingUser = await _firebaseAuthService.GetUserAsync(decodedToken.Uid);
+
+            // Kiểm tra nếu đã có roles
+            if (existingUser.CustomClaims.TryGetValue("roles", out var existingRoles))
+            {
+                return Ok(new
+                {
+                    status = "success",
+                    message = "User already has roles",
+                    roles = existingRoles
+                });
+            }
+
+            // Xác định roles mới
+            var newClaims = _firebaseAuthService.DetermineUserRoles(decodedToken);
+            await _firebaseAuthService.SetCustomUserClaimsAsync(decodedToken.Uid, newClaims);
+
+            // Lấy thông tin từ token
+            var email = decodedToken.Claims["email"].ToString();
+            var firebaseName = decodedToken.Claims.TryGetValue("name", out var nameObj)
+                                ? nameObj.ToString()
+                                : email.Split('@')[0];
+            var role = ((List<string>)newClaims["roles"]).First();
+
+            // Đồng bộ user vào database
+            var appUser = await _userService.GetOrCreateUserAsync(
+                email,
+                firebaseName,
+                decodedToken.Uid,
+                role
+            );
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Claims updated",
+                roles = newClaims["roles"]
+            });
         }
-
-        [HttpPost("setCustomClaims")]
-        public async Task<IActionResult> SetCustomClaims([FromBody] TokenRequestDTO request)
+        catch (FirebaseAuthException ex)
         {
-            try
-            {
-                FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(request.IdToken);
-                string uid = decodedToken.Uid;
-
-                var existingUser = await FirebaseAuth.DefaultInstance.GetUserAsync(uid);
-
-                if (existingUser.CustomClaims.TryGetValue("roles", out object existingRolesObj))
-                {
-                    if (existingRolesObj is IEnumerable<object> rolesList)
-                    {
-                        var roles = rolesList.Select(r => r.ToString()).ToList();
-                        return Ok(new { status = "success", message = "User already has assigned roles", roles });
-                    }
-                }
-
-                var newClaims = new Dictionary<string, object>();
-
-                // Kiểm tra điều kiện đặt vai trò
-                if (decodedToken.Claims.TryGetValue("email", out object emailObj) &&
-                    emailObj is string email)
-                {
-                    if (decodedToken.Claims.TryGetValue("email_verified", out object emailVerifiedObj) &&
-                        emailVerifiedObj is bool verified && verified &&
-                        email.EndsWith("@admin.example.com", StringComparison.OrdinalIgnoreCase))
-                    {
-                        newClaims["roles"] = new List<string> { "Admin" };
-                    }
-                    else if (email.Equals("thanh@gmail.com", StringComparison.OrdinalIgnoreCase))
-                    {
-                        newClaims["roles"] = new List<string> { "Admin" };
-                    }
-                    else
-                    {
-                        newClaims["roles"] = new List<string> { "User" };
-                    }
-                }
-                else
-                {
-                    newClaims["roles"] = new List<string> { "User" };
-                }
-
-                await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(uid, newClaims);
-
-                var user = await GetOrCreateUser(newClaims);
-
-                return Ok(new { status = "success", message = "Claims updated successfully", roles = newClaims["roles"] });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { status = "error", message = $"Invalid token: {ex.Message}" });
-            }
+            return BadRequest(new { status = "error", message = ex.Message });
         }
-
-
-        private async Task<User> GetOrCreateUser(Dictionary<string, object> newClaims)
+        catch (Exception ex)
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var firebaseName = User.FindFirstValue(ClaimTypes.Name);
-            var firebaseUid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var role = "User";
-            if (newClaims.TryGetValue("roles", out object rolesObj) && rolesObj is List<string> rolesList && rolesList.Count > 0)
-            {
-                role = rolesList[0];
-            }
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user == null)
-            {
-                user = new User
-                {
-                    Email = email,
-                    FullName = firebaseName ?? email.Split('@')[0],
-                    Password = "FIREBASE_AUTH",
-                    Role = role,
-                    Avatar = "default-avatar.png",
-                    SubscriptionType = "Free"
-                };
-
-                await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
-            }
-
-            return user;
+            return StatusCode(500, new { status = "error", message = ex.Message });
         }
     }
 }
