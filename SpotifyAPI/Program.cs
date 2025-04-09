@@ -1,4 +1,4 @@
-using FirebaseAdmin;
+﻿using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using SpotifyAPI.Data;
 using SpotifyAPI.Middleware;
 using SpotifyAPI.Services;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,23 +23,41 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 
 FirebaseApp.Create(new AppOptions()
 {
-    Credential = GoogleCredential.FromFile("reactnativeapp-7cd31-firebase-adminsdk-fbsvc-6d99501c1a.json"),
+    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
 });
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = "https://securetoken.google.com/spotifyapp-efafb";
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidIssuer = "https://securetoken.google.com/spotifyapp-efafb",
+//            ValidateAudience = true,
+//            ValidAudience = "spotifyapp-efafb",
+//            ValidateLifetime = true,
+//            //RoleClaimType = "roles" // Map the "roles" claim to Role claims
+//        };
+//    });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://securetoken.google.com/reactnativeapp-7cd31";
+        options.Authority = "https://securetoken.google.com/spotifyapp-efafb";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = "https://securetoken.google.com/reactnativeapp-7cd31",
+            ValidIssuer = "https://securetoken.google.com/spotifyapp-efafb",
+
             ValidateAudience = true,
-            ValidAudience = "reactnativeapp-7cd31",
+            ValidAudience = "spotifyapp-efafb",
+
             ValidateLifetime = true,
-            //RoleClaimType = "roles" // Map the "roles" claim to Role claims
+            //RoleClaimType = "roles"
         };
     });
+
 
 builder.Services.AddCors(options =>
 {

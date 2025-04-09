@@ -13,6 +13,10 @@ namespace SpotifyAPI.Controllers
         {
             //var email = User.FindFirstValue(ClaimTypes.Email);
             //var roles = User.Claims.Where(c => c.Type == "roles").Select(c => c.Value).ToList();
+            foreach (var claim in User.Claims)
+            {
+                Console.WriteLine($"ClaimType: {claim.Type}, Value: {claim.Value}");
+            }
 
             var response = new
             {
