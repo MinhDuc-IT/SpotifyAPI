@@ -32,32 +32,31 @@ namespace SpotifyAPI.Services
             var claims = new Dictionary<string, object>();
             var roles = new List<string>();
 
-            if (decodedToken.Claims.TryGetValue("email", out var emailObj) && emailObj is string email)
-            {
-                bool isEmailVerified = decodedToken.Claims.TryGetValue("email_verified", out var emailVerifiedObj)
-                                        && emailVerifiedObj is bool emailVerified
-                                        && emailVerified;
+            // Mặc định là User
+            roles.Add("User");
 
-                if (isEmailVerified && (email.EndsWith("@admin.example.com") || email.Equals("thanh@gmail.com")))
+            // 1. Nếu có email và đã xác minh
+            if (decodedToken.Claims.TryGetValue("email", out var emailObj) &&
+                emailObj is string email &&
+                decodedToken.Claims.TryGetValue("email_verified", out var emailVerifiedObj) &&
+                emailVerifiedObj is bool emailVerified &&
+                emailVerified)
+            {
+                if (email.EndsWith("@admin.example.com") || email.Equals("thanh@gmail.com"))
                 {
+                    roles.Clear();
                     roles.Add("Admin");
                 }
                 else if (email.StartsWith("admin"))
                 {
+                    roles.Clear();
                     roles.Add("Admin");
                 }
-                else
-                {
-                    roles.Add("User");
-                }                
-            }
-            else
-            {
-                roles.Add("User");
             }
 
             claims["roles"] = roles;
             return claims;
         }
+
     }
 }

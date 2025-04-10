@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ReactNative\\DoAn\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj": {}
+    "D:\\Semester_6_2025\\App_mobile\\DOAN\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj": {}
   },
   "projects": {
-    "F:\\ReactNative\\DoAn\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj": {
+    "D:\\Semester_6_2025\\App_mobile\\DOAN\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ReactNative\\DoAn\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj",
+        "projectUniqueName": "D:\\Semester_6_2025\\App_mobile\\DOAN\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj",
         "projectName": "SpotifyAPI",
-        "projectPath": "F:\\ReactNative\\DoAn\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "F:\\ReactNative\\DoAn\\SpotifyAPI\\SpotifyAPI\\obj\\",
+        "projectPath": "D:\\Semester_6_2025\\App_mobile\\DOAN\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.csproj",
+        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+        "outputPath": "D:\\Semester_6_2025\\App_mobile\\DOAN\\SpotifyAPI\\SpotifyAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
