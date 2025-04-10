@@ -7,6 +7,8 @@ using SpotifyAPI.Data;
 using SpotifyAPI.Middleware;
 using SpotifyAPI.Services;
 using System.Security.Cryptography.X509Certificates;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,7 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 
 FirebaseApp.Create(new AppOptions()
 {
-    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-c36f82e520.json"),
 });
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -77,6 +79,18 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
+builder.Services.AddScoped<ISongService, SongService>();
+builder.Services.AddScoped<CloudinaryService>();
+
+// Config Cloudinary
+var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");
+var account = new Account(
+    cloudinaryConfig["CloudName"],
+    cloudinaryConfig["ApiKey"],
+    cloudinaryConfig["ApiSecret"]
+);
+
+builder.Services.AddSingleton(new Cloudinary(account));
 
 var app = builder.Build();
 
