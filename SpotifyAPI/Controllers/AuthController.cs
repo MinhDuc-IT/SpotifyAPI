@@ -132,7 +132,9 @@ public class AuthController : ControllerBase
             // 5. Extract info from token
             _logger.LogInformation("📥 Extracting email and name from token...");
             var swExtract = Stopwatch.StartNew();
-            var email = decodedToken.Claims["email"].ToString();
+            var email = decodedToken.Claims.TryGetValue("email", out var emailObj)
+             ? emailObj.ToString()
+             : $"{decodedToken.Uid}@noemail.firebase";
             var firebaseName = decodedToken.Claims.TryGetValue("name", out var nameObj)
                                 ? nameObj.ToString()
                                 : email.Split('@')[0];
