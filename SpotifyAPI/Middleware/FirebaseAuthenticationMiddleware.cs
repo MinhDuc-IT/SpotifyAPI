@@ -20,7 +20,7 @@ namespace SpotifyAPI.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             // Bỏ qua xác thực cho các endpoint không yêu cầu
-            if (PublicEndpoints.Endpoints.Contains(context.Request.Path.Value))
+            if (EndpointAccess.PublicEndpoints.Contains(context.Request.Path.Value))
             {
                 // Bỏ qua xác thực nếu là public endpoint
                 await _next(context);
@@ -31,7 +31,8 @@ namespace SpotifyAPI.Middleware
 
             if (string.IsNullOrEmpty(header) || !header.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             {
-                await _next(context);
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("Unauthorized: Missing or invalid Authorization header.");
                 return;
             }
 
@@ -47,10 +48,16 @@ namespace SpotifyAPI.Middleware
             catch (FirebaseAuthException ex)
             {
                 _logger.LogWarning(ex, "Firebase token verification failed.");
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync($"Unauthorized: {ex.Message}");
+                return;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unexpected error during Firebase token verification.");
+                context.Response.StatusCode = 500;
+                await context.Response.WriteAsync("Internal Server Error during authentication.");
+                return;
             }
 
             await _next(context);

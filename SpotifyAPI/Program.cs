@@ -41,22 +41,22 @@ FirebaseApp.Create(new AppOptions()
 //        };
 //    });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = "https://securetoken.google.com/spotifyapp-efafb";
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = "https://securetoken.google.com/spotifyapp-efafb",
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = "https://securetoken.google.com/spotifyapp-efafb";
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidIssuer = "https://securetoken.google.com/spotifyapp-efafb",
 
-            ValidateAudience = true,
-            ValidAudience = "spotifyapp-efafb",
+//            ValidateAudience = true,
+//            ValidAudience = "spotifyapp-efafb",
 
-            ValidateLifetime = true,
-            //RoleClaimType = "roles"
-        };
-    });
+//            ValidateLifetime = true,
+//            //RoleClaimType = "roles"
+//        };
+//    });
 
 
 builder.Services.AddCors(options =>
@@ -89,12 +89,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("ExpoPolicy");
 
-//app.UseMiddleware<FirebaseAuthenticationMiddleware>();
-
+app.UseMiddleware<FirebaseAuthenticationMiddleware>();
+app.UseMiddleware<FirebaseAuthorizationMiddleware>();
 //app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllers();
 

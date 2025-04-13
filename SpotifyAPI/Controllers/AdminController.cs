@@ -5,7 +5,7 @@ namespace SpotifyAPI.Controllers
 {
     [Route("api/admin")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         [HttpGet("dashboard")]

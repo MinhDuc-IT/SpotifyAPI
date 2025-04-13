@@ -5,7 +5,7 @@ namespace SpotifyAPI.Controllers
 {
     [Route("api/home")]
     [ApiController]
-    [Authorize(Roles = "User")]
+    //[Authorize(Roles = "User")]
     public class HomeController : ControllerBase
     {
         [HttpGet]
