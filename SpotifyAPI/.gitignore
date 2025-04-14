@@ -434,3 +434,49 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Build folders
+bin/
+obj/
+out/
+build/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+.vscode/
+
+# ASP.NET
+Generated\ Files/
+ScaffoldingReadMe.txt
+
+# Entity Framework
+**/Migrations/*Snapshot.cs
+
+# Logs & temp
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Docker
+**/docker-compose.override.yml
+
+# NuGet
+*.nupkg
+packages/
+
+# Publish
+**/publish/
+
+# DB
+*.mdf
+*.ldf
+
+# Dotnet artifacts
+artifacts/
