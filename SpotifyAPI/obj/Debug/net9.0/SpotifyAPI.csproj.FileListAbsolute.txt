@@ -129,3 +129,4 @@ D:\MinhDuc\laptrinh\SpotifyAppProject\Code\SpotifyAPI\SpotifyAPI\obj\Debug\net9.
 D:\MinhDuc\laptrinh\SpotifyAppProject\Code\SpotifyAPI\SpotifyAPI\obj\Debug\net9.0\SpotifyAPI.pdb
 D:\MinhDuc\laptrinh\SpotifyAppProject\Code\SpotifyAPI\SpotifyAPI\obj\Debug\net9.0\SpotifyAPI.genruntimeconfig.cache
 D:\MinhDuc\laptrinh\SpotifyAppProject\Code\SpotifyAPI\SpotifyAPI\obj\Debug\net9.0\ref\SpotifyAPI.dll
+D:\MinhDuc\laptrinh\SpotifyAppProject\Code\SpotifyAPI\SpotifyAPI\obj\Debug\net9.0\SpotifyAPI.sourcelink.json
