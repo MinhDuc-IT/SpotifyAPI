@@ -14,6 +14,12 @@ namespace SpotifyAPI.Models
 
         public DateTime CreatedDate { get; set; }
 
+        [MaxLength(500)]
+        public string? Description { get; set; }
+
+        [Required]
+        public bool IsPublic { get; set; } = false;
+        
         // FK
         public int UserID { get; set; }
 
@@ -21,5 +27,7 @@ namespace SpotifyAPI.Models
         public User User { get; set; }
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; }
+        public ICollection<LikedPlaylist> LikedByUsers { get; set; } = new List<LikedPlaylist>();
+
     }
 }

@@ -23,5 +23,7 @@ namespace SpotifyAPI.Models
         public Artist Artist { get; set; }
 
         public ICollection<Song> Songs { get; set; }
+        public ICollection<LikedAlbum> LikedByUsers { get; set; } = new List<LikedAlbum>();
+
     }
 }
