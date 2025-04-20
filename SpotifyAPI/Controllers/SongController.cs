@@ -64,6 +64,7 @@ namespace SpotifyAPI.Controllers
             return Ok("Song deleted successfully.");
         }
 
+
         [HttpGet("{songId}/lyric")]
         public async Task<IActionResult> GetLyricAsync(int songId)
         {
@@ -106,6 +107,7 @@ namespace SpotifyAPI.Controllers
 
             return result;
         }
+
 
     }
 }
