@@ -15,7 +15,12 @@ namespace SpotifyAPI.Models
 
         public string? Image { get; set; }
 
+        public DateTime FormedDate { get; set; }
+
         public ICollection<Song> Songs { get; set; }
         public ICollection<Album> Albums { get; set; }
+        public ICollection<ArtistFollow> Followers { get; set; } = new List<ArtistFollow>();
+        public ICollection<SongArtist> SongArtists { get; set; } = new List<SongArtist>();
+
     }
 }
