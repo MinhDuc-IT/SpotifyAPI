@@ -18,5 +18,11 @@ namespace SpotifyAPI.Models
 
         [ForeignKey("UserID")]
         public User User { get; set; }
+
+        //FK
+        public int PlanId { get; set; }
+        [ForeignKey("PlanId")]
+        public Plan Plan { get; set; }
+        public string? PaymentStatus { get; set; }
     }
 }
