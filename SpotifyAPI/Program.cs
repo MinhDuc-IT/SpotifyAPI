@@ -93,6 +93,8 @@ var account = new Account(
 builder.Services.AddSingleton(new Cloudinary(account));
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

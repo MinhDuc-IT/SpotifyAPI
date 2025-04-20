@@ -42,5 +42,19 @@ namespace SpotifyAPI.Services
             var uploadResult = await _cloudinary.UploadAsync(uploadParams);
             return uploadResult?.SecureUrl?.ToString();
         }
+
+        public async Task<string?> UploadLyric(IFormFile file)
+        {
+            if (file == null || file.Length == 0) return null;
+
+            var uploadParams = new RawUploadParams()
+            {
+                File = new FileDescription(file.FileName, file.OpenReadStream()),
+                Folder = "spotify_lyric"
+            };
+
+            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            return uploadResult?.SecureUrl?.ToString();
+        }
     }
 }
