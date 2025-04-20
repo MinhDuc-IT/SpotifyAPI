@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using SpotifyAPI.Data;
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Models;
+
 using SpotifyAPI.Utils;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+
 namespace SpotifyAPI.Services
 {
     public interface ISongService
@@ -14,15 +16,18 @@ namespace SpotifyAPI.Services
         Task<Song> CreateSongAsync(CreateSongDTO request);
         Task<Song> UpdateSongAsync(int id, UpdateSongDTO request);
         Task<bool> DeleteSongAsync(int id);
+
         Task<List<LyricResponseDTO>> GetLyric(int songId);
         //List<LyricResponseDTO> ParseLyricLines(string[] lines);
         Task<Song> CreateLyricAsync(int songId, CreateLyricDTO lyricDTO);
         Task<FileCallbackResult?> StreamSongAsync(int songId);
+
     }
     public class SongService : ISongService
     {
         private readonly SpotifyDbContext _context;
         private readonly CloudinaryService _cloudinaryService;
+
         private readonly ILogger<SongService> _logger;
         private readonly HttpClient _httpClient;
 
@@ -32,6 +37,7 @@ namespace SpotifyAPI.Services
             _cloudinaryService = cloudinaryService;
             _logger = logger;
             _httpClient = httpClientFactory.CreateClient();
+
         }
 
         public async Task<object> GetAllSongsAsync(int page, int limit)
@@ -127,6 +133,7 @@ namespace SpotifyAPI.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
 
         public async Task<Song> CreateLyricAsync(int songId, CreateLyricDTO lyricDTO)
         {
@@ -245,4 +252,5 @@ namespace SpotifyAPI.Services
         //    return lyrics.OrderBy(l => l.StartTime).ToList();
         //}
     }
+
 }

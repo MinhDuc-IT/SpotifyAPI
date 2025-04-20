@@ -43,6 +43,7 @@ namespace SpotifyAPI.Services
             return uploadResult?.SecureUrl?.ToString();
         }
 
+
         public async Task<string?> UploadLyric(IFormFile file)
         {
             if (file == null || file.Length == 0) return null;
@@ -56,5 +57,6 @@ namespace SpotifyAPI.Services
             var uploadResult = await _cloudinary.UploadAsync(uploadParams);
             return uploadResult?.SecureUrl?.ToString();
         }
+
     }
 }
