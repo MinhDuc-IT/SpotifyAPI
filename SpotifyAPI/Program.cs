@@ -25,11 +25,11 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 
 FirebaseApp.Create(new AppOptions()
 {
-<<<<<<< HEAD
+
     Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-d42de84563.json"),
-=======
-    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
->>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4
+
+    //Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+
 });
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

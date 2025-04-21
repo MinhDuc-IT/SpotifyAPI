@@ -1,12 +1,11 @@
-<<<<<<< HEAD
+
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.Models;
-=======
-﻿using Microsoft.AspNetCore.Mvc;
+
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
->>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4
+
 
 namespace SpotifyAPI.Controllers
 {
@@ -14,7 +13,7 @@ namespace SpotifyAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-<<<<<<< HEAD
+
         [HttpGet("profile")]
         public IActionResult GetUserProfile()
         {
@@ -95,9 +94,8 @@ namespace SpotifyAPI.Controllers
 
             return Ok(new { items = artists });
         }
-    }
-}
-=======
+
+
         private readonly IUserService _userService;
 
         public UserController(IUserService userService)
@@ -171,4 +169,4 @@ namespace SpotifyAPI.Controllers
         }
     }
 }
->>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4
+
