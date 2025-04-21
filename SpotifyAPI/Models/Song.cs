@@ -16,6 +16,8 @@ namespace SpotifyAPI.Models
 
         public string Audio { get; set; } // URL audio
 
+        public string? LyricUrl { get; set; }
+
         public int PlayCount { get; set; }
 
         // FK
@@ -30,7 +32,13 @@ namespace SpotifyAPI.Models
         public Album Album { get; set; }
 
         public string? Image { get; set; }
+        public int? TrackNumber { get; set; }  //thứ tự trong album
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; }
+        public ICollection<LikedSong> LikedByUsers { get; set; } = new List<LikedSong>();
+        public ICollection<ListeningHistory> ListeningHistories { get; set; } = new List<ListeningHistory>();
+        public ICollection<SongArtist> SongArtists { get; set; } = new List<SongArtist>();
+        public ICollection<SongGenre> SongGenres { get; set; } = new List<SongGenre>();
+
     }
 }

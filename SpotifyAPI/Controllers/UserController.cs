@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.Models;
+=======
+﻿using Microsoft.AspNetCore.Mvc;
+using SpotifyAPI.DTOs;
+using SpotifyAPI.Services;
+>>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4
 
 namespace SpotifyAPI.Controllers
 {
@@ -8,6 +14,7 @@ namespace SpotifyAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+<<<<<<< HEAD
         [HttpGet("profile")]
         public IActionResult GetUserProfile()
         {
@@ -90,3 +97,78 @@ namespace SpotifyAPI.Controllers
         }
     }
 }
+=======
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetUsers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var (users, totalCount) = await _userService.GetUsersAsync(pageNumber, pageSize);
+
+            var result = new
+            {
+                Data = users,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
+            };
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> CreateUser([FromBody] UserCreateDto userCreateDto)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            } 
+
+            var createdUser = await _userService.CreateUserAsync(userCreateDto);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.UserID }, createdUser);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserUpdateDto userUpdateDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updatedUser = await _userService.UpdateUserAsync(id, userUpdateDto);
+            if (updatedUser == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedUser);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            var success = await _userService.DeleteUserAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+    }
+}
+>>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4

@@ -25,7 +25,11 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 
 FirebaseApp.Create(new AppOptions()
 {
+<<<<<<< HEAD
     Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-d42de84563.json"),
+=======
+    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+>>>>>>> 2434a0f21837c4525b6a7d5390143351772f19d4
 });
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -78,6 +82,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
+
 builder.Services.AddScoped<ISongService, SongService>();
 builder.Services.AddScoped<CloudinaryService>();
 
@@ -90,6 +97,11 @@ var account = new Account(
 );
 
 builder.Services.AddSingleton(new Cloudinary(account));
+
+builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
+
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 

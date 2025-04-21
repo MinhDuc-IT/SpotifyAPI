@@ -63,5 +63,51 @@ namespace SpotifyAPI.Controllers
                 return NotFound("Song not found.");
             return Ok("Song deleted successfully.");
         }
+
+
+        [HttpGet("{songId}/lyric")]
+        public async Task<IActionResult> GetLyricAsync(int songId)
+        {
+            try
+            {
+                var lyrics = await _songService.GetLyric(songId);
+                return Ok(lyrics); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("{songId}/lyric")]
+        public async Task<IActionResult> CreateLyricAsync(int songId, [FromForm] CreateLyricDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var song = await _songService.CreateLyricAsync(songId, request);
+                return Ok(song);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{songId}/stream")]
+        public async Task<IActionResult> StreamSong(int songId)
+        {
+            var result = await _songService.StreamSongAsync(songId);
+            if (result == null)
+                return NotFound("Không tìm thấy bài hát hoặc lỗi khi stream.");
+
+            return result;
+        }
+
+
     }
 }

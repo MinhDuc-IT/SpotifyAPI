@@ -17,5 +17,9 @@ namespace SpotifyAPI.Models
 
         [ForeignKey("SongID")]
         public Song Song { get; set; }
+
+        public DateTime AddedAt { get; set; } = DateTime.UtcNow;
+
+        public int? Order { get; set; }
     }
 }
