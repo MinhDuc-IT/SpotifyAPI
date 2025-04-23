@@ -86,8 +86,7 @@
               "RelativeToolTip": "SpotifyAPI\\Controllers\\UserController.cs",
               "ViewState": "AgIAAGgAAAAAAAAAAAAIwGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T18:37:29.235Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T18:37:29.235Z"
             },
             {
               "$type": "Document",
@@ -131,9 +130,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Program.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs*",
-              "RelativeToolTip": "SpotifyAPI\\Program.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAEAAAAAAAAAA==",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs",
+              "RelativeToolTip": "SpotifyAPI\\Program.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAH4AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-05T03:27:03.015Z",
               "EditorCaption": ""
