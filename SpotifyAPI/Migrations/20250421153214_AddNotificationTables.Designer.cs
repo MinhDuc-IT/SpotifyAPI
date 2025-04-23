@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SpotifyAPI.Data;
@@ -11,9 +12,11 @@ using SpotifyAPI.Data;
 namespace SpotifyAPI.Migrations
 {
     [DbContext(typeof(SpotifyDbContext))]
-    partial class SpotifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421153214_AddNotificationTables")]
+    partial class AddNotificationTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,7 +219,7 @@ namespace SpotifyAPI.Migrations
 
                     b.HasIndex("SenderUserId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notification");
                 });
 
             modelBuilder.Entity("SpotifyAPI.Models.NotificationReceiver", b =>
@@ -245,7 +248,7 @@ namespace SpotifyAPI.Migrations
 
                     b.HasIndex("ReceiverUserId");
 
-                    b.ToTable("NotificationReceivers");
+                    b.ToTable("NotificationReceiver");
                 });
 
             modelBuilder.Entity("SpotifyAPI.Models.Plan", b =>
@@ -634,8 +637,7 @@ namespace SpotifyAPI.Migrations
                 {
                     b.HasOne("SpotifyAPI.Models.User", "Sender")
                         .WithMany("SentNotifications")
-                        .HasForeignKey("SenderUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("SenderUserId");
 
                     b.Navigation("Sender");
                 });
