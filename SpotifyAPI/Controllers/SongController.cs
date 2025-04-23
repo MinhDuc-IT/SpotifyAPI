@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
 
@@ -14,6 +16,8 @@ namespace SpotifyAPI.Controllers
         {
             _songService = songService;
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> GetAllSong(int page = 1, int limit = 10)

@@ -13,6 +13,7 @@ namespace SpotifyAPI.Services
         Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto);
         Task<UserDto> UpdateUserAsync(int userId, UserUpdateDto userUpdateDto);
         Task<bool> DeleteUserAsync(int userId);
+        Task<UserDto> demoAsync(string userId);
     }
 
     public class UserService : IUserService
@@ -79,6 +80,27 @@ namespace SpotifyAPI.Services
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.UserID == userId);
+
+            if (user == null)
+                return null;
+
+            // Chuyển đổi từ User sang UserDto
+            return new UserDto
+            {
+                UserID = user.UserID,
+                Email = user.Email,
+                FullName = user.FullName,
+                Avatar = user.Avatar,
+                DateJoined = user.DateJoined,
+                SubscriptionType = user.SubscriptionType,
+                Role = user.Role
+            };
+        }
+
+        public async Task<UserDto> demoAsync(string userId)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.FullName == userId);
 
             if (user == null)
                 return null;
