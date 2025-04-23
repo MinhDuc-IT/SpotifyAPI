@@ -55,6 +55,7 @@
         public ICollection<ListeningHistory> ListeningHistories { get; set; } = new List<ListeningHistory>();
         public ICollection<UserFollow> Following { get; set; } = new List<UserFollow>();  // Những người mà User đang theo dõi
         public ICollection<UserFollow> Followers { get; set; } = new List<UserFollow>();  // Những người theo dõi User
-
+        public ICollection<NotificationReceiver> NotificationReceivers { get; set; } = new List<NotificationReceiver>();
+        public ICollection<Notification> SentNotifications { get; set; } = new List<Notification>();
     }
 }

@@ -7,7 +7,8 @@ namespace SpotifyAPI.Services
 {
     public interface IUserService
     {
-        Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role);
+        Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role, string provider, string photoUrl);
+        Task<List<User>> GetAllAdminsAsync();
         Task<(IEnumerable<UserDto> Users, int TotalCount)> GetUsersAsync(int pageNumber, int pageSize);
         Task<UserDto> GetUserByIdAsync(int userId);
         Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto);
@@ -27,20 +28,24 @@ namespace SpotifyAPI.Services
             _firebaseUserAsyncService = firebaseUserAsyncService;
         }
 
-        public async Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role)
+        public async Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role, string provider, string photoUrl)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == firebaseUid);
 
             if (user == null)
             {
                 user = new User
                 {
                     Email = email,
-                    FullName = firebaseUid ?? email.Split('@')[0],
+                    FullName = firebaseName ?? email.Split('@')[0],
                     Password = "FIREBASE_AUTH",
                     Role = role,
-                    Avatar = "https://placehold.co/400",
-                    SubscriptionType = "Free"
+                    Avatar = photoUrl ?? "https://placehold.co/400",
+                    SubscriptionType = "Free",
+                    EmailVerified = true,
+                    DateJoined = DateTime.UtcNow,
+                    SignInProvider = provider,
+                    FirebaseUid = firebaseUid,
                 };
 
                 await _context.Users.AddAsync(user);
@@ -48,6 +53,14 @@ namespace SpotifyAPI.Services
             }
 
             return user;
+        }
+
+        public async Task<List<User>> GetAllAdminsAsync()
+        {
+            var admins = await _context.Users
+                .Where(u => u.Role == "Admin")
+                .ToListAsync();
+            return admins;
         }
 
         public async Task<(IEnumerable<UserDto> Users, int TotalCount)> GetUsersAsync(int pageNumber, int pageSize)

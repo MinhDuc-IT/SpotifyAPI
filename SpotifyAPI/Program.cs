@@ -9,6 +9,8 @@ using SpotifyAPI.Services;
 using System.Security.Cryptography.X509Certificates;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using SpotifyAPI.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +64,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             //RoleClaimType = "roles"
         };
+
+        // 👇 Add SignalR JWT support
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                // Cho phép truyền token qua query string khi dùng WebSocket (SignalR)
+                var accessToken = context.Request.Query["access_token"];
+
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationHub"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
 
@@ -86,9 +105,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
 builder.Services.AddScoped<ISongService, SongService>();
+
 builder.Services.AddScoped<IListeningHistoryService, ListeningHistoryService>();
 builder.Services.AddScoped<ILikedSongService, LikedSongService>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
+
+
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<CloudinaryService>();
 
@@ -104,8 +127,10 @@ builder.Services.AddSingleton(new Cloudinary(account));
 
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
-builder.Services.AddHttpClient();
+// Add SignalR
+builder.Services.AddSignalR();
 
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -127,5 +152,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/notificationHub");
 
 app.Run();

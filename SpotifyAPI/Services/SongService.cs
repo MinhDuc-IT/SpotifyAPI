@@ -13,7 +13,8 @@ namespace SpotifyAPI.Services
     public interface ISongService
     {
         Task<object> GetAllSongsAsync(int page, int limit);
-        Task<Song> CreateSongAsync(CreateSongDTO request);
+        Task<object> SearchSongsByNameAsync(string keyword, int page, int limit);
+        Task<Song> CreateSongAsync(CreateSongDTO request, string uid);
         Task<Song> UpdateSongAsync(int id, UpdateSongDTO request);
         Task<bool> DeleteSongAsync(int id);
 
@@ -21,7 +22,7 @@ namespace SpotifyAPI.Services
         //List<LyricResponseDTO> ParseLyricLines(string[] lines);
         Task<Song> CreateLyricAsync(int songId, CreateLyricDTO lyricDTO);
         Task<FileCallbackResult?> StreamSongAsync(int songId);
-        
+
 
     }
     public class SongService : ISongService
@@ -71,7 +72,29 @@ namespace SpotifyAPI.Services
             };
         }
 
-        public async Task<Song> CreateSongAsync(CreateSongDTO request)
+        public async Task<object> SearchSongsByNameAsync(string keyword, int page, int limit)
+        {
+            var query = _context.Songs
+                .Where(s => s.SongName.ToLower().Contains(keyword.ToLower()));
+
+            var totalItems = await query.CountAsync();
+            var items = await query
+                .OrderBy(s => s.SongName)
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .ToListAsync();
+
+            return new
+            {
+                Items = items,
+                TotalItems = totalItems,
+                Page = page,
+                Limit = limit
+            };
+        }
+
+
+        public async Task<Song> CreateSongAsync(CreateSongDTO request, string uid)
         {
             var imageUrl = await _cloudinaryService.UploadImage(request.Image);
             if (imageUrl == null)
@@ -81,6 +104,8 @@ namespace SpotifyAPI.Services
             if (audioUrl == null)
                 throw new Exception("Audio upload failed.");
 
+            var Artist = await _context.Users.FirstOrDefaultAsync(a => a.FirebaseUid == uid);
+
             var song = new Song
             {
                 SongName = request.SongName,
@@ -88,7 +113,6 @@ namespace SpotifyAPI.Services
                 Image = imageUrl,
                 ArtistID = 1, // TODO: lấy từ claim sau
                 PlayCount = 0,
-                AlbumID = 1
             };
 
             await _context.Songs.AddAsync(song);
