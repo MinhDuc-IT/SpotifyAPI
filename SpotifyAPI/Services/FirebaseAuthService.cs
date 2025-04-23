@@ -7,7 +7,7 @@ namespace SpotifyAPI.Services
         Task<FirebaseToken> VerifyIdTokenAsync(string idToken);
         Task<UserRecord> GetUserAsync(string uid);
         Task SetCustomUserClaimsAsync(string uid, Dictionary<string, object> claims);
-        Dictionary<string, object> DetermineUserRoles(FirebaseToken decodedToken);
+        Dictionary<string, object> DetermineUserRoles(FirebaseToken decodedToken, string origin);
     }
 
     public class FirebaseAuthService : IFirebaseAuthService
@@ -27,7 +27,7 @@ namespace SpotifyAPI.Services
             await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(uid, claims);
         }
 
-        public Dictionary<string, object> DetermineUserRoles(FirebaseToken decodedToken)
+        public Dictionary<string, object> DetermineUserRoles(FirebaseToken decodedToken, string origin)
         {
             var claims = new Dictionary<string, object>();
             var roles = new List<string>();
@@ -42,7 +42,7 @@ namespace SpotifyAPI.Services
                 emailVerifiedObj is bool emailVerified &&
                 emailVerified)
             {
-                if (email.EndsWith("@admin.example.com") || email.Equals("thanh@gmail.com"))
+                if (email.EndsWith("@admin.example.com") || email.Equals("thanh@gmail.com") || email.Equals("duch52362@gmail.com") || email.Equals("hvduc75@gmail.com"))
                 {
                     roles.Clear();
                     roles.Add("Admin");
@@ -51,6 +51,20 @@ namespace SpotifyAPI.Services
                 {
                     roles.Clear();
                     roles.Add("Admin");
+                }
+                else
+                {
+                    // Nếu không phải Admin, xác định theo origin
+                    if (!string.IsNullOrEmpty(origin) && origin.Contains(":3000"))
+                    {
+                        roles.Clear();
+                        roles.Add("Artist");
+                    }
+                    else
+                    {
+                        roles.Clear();
+                        roles.Add("User");
+                    }
                 }
             }
 

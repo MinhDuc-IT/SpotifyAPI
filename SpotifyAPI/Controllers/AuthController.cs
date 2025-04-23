@@ -124,11 +124,12 @@ public class AuthController : ControllerBase
             // 4. Determine and set new roles
             _logger.LogInformation("🧠 Determining new roles...");
             var swClaims = Stopwatch.StartNew();
-            var newClaims = _firebaseAuthService.DetermineUserRoles(decodedToken);
+            var origin = Request.Headers["Origin"];
+            _logger.LogInformation("Origin: {Origin}", origin);
+            var newClaims = _firebaseAuthService.DetermineUserRoles(decodedToken, origin);
             await _firebaseAuthService.SetCustomUserClaimsAsync(decodedToken.Uid, newClaims);
             swClaims.Stop();
             _logger.LogInformation($"✅ Role determination + SetCustomUserClaimsAsync took {swClaims.ElapsedMilliseconds} ms");
-
             // 5. Extract info from token
             _logger.LogInformation("📥 Extracting email and name from token...");
             var swExtract = Stopwatch.StartNew();
@@ -139,17 +140,24 @@ public class AuthController : ControllerBase
                                 ? nameObj.ToString()
                                 : email.Split('@')[0];
             var role = ((List<string>)newClaims["roles"]).First();
+            var provider = existingUser.ProviderData.FirstOrDefault()?.ProviderId;
+            _logger.LogInformation("Provider: {Provider}", provider);
+            var photoUrl = existingUser.PhotoUrl;
+            _logger.LogInformation("Photo URL: {PhotoUrl}", photoUrl);
             swExtract.Stop();
             _logger.LogInformation($"✅ Extracting info from token took {swExtract.ElapsedMilliseconds} ms");
 
             // 6. Sync user to local DB
             _logger.LogInformation("🗃️ Syncing user to local database...");
             var swSync = Stopwatch.StartNew();
+
             var appUser = await _userService.GetOrCreateUserAsync(
                 email,
                 firebaseName,
                 decodedToken.Uid,
-                role
+                role, 
+                provider,
+                photoUrl
             );
             swSync.Stop();
             _logger.LogInformation($"✅ GetOrCreateUserAsync took {swSync.ElapsedMilliseconds} ms");

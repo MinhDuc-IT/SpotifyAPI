@@ -12,7 +12,7 @@ namespace SpotifyAPI.Models
         [MaxLength(200)]
         public string SongName { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         public string Audio { get; set; } // URL audio
 
@@ -26,13 +26,16 @@ namespace SpotifyAPI.Models
         [ForeignKey("ArtistID")]
         public Artist Artist { get; set; }
 
-        public int AlbumID { get; set; }
+        public int? AlbumID { get; set; }
 
         [ForeignKey("AlbumID")]
         public Album Album { get; set; }
 
         public string? Image { get; set; }
         public int? TrackNumber { get; set; }  //thứ tự trong album
+
+        [Required]
+        public SongStatus Status { get; set; } = SongStatus.PENDING;
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; }
         public ICollection<LikedSong> LikedByUsers { get; set; } = new List<LikedSong>();

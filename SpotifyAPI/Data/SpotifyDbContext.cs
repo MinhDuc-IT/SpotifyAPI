@@ -25,6 +25,8 @@ namespace SpotifyAPI.Data
         public DbSet<SongGenre> SongGenres { get; set; }
         public DbSet<SongArtist> SongArtists { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationReceiver> NotificationReceivers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -141,6 +143,25 @@ namespace SpotifyAPI.Data
                 .HasOne(uf => uf.FollowedUser)
                 .WithMany(u => u.Followers) 
                 .HasForeignKey(uf => uf.FollowedUserId);
+
+            //Notification
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Sender)
+                .WithMany(u => u.SentNotifications)
+                .HasForeignKey(n => n.SenderUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<NotificationReceiver>()
+                .HasOne(nr => nr.Notification)
+                .WithMany(n => n.NotificationReceivers)
+                .HasForeignKey(nr => nr.NotificationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NotificationReceiver>()
+                .HasOne(nr => nr.Receiver)
+                .WithMany(u => u.NotificationReceivers)
+                .HasForeignKey(nr => nr.ReceiverUserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

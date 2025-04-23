@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SpotifyAPI.Data;
@@ -11,9 +12,11 @@ using SpotifyAPI.Data;
 namespace SpotifyAPI.Migrations
 {
     [DbContext(typeof(SpotifyDbContext))]
-    partial class SpotifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421084512_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,64 +193,6 @@ namespace SpotifyAPI.Migrations
                     b.ToTable("ListeningHistories");
                 });
 
-            modelBuilder.Entity("SpotifyAPI.Models.Notification", b =>
-                {
-                    b.Property<int>("NotificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NotificationId"));
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("SenderUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("NotificationId");
-
-                    b.HasIndex("SenderUserId");
-
-                    b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("SpotifyAPI.Models.NotificationReceiver", b =>
-                {
-                    b.Property<int>("NotiReceiverId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NotiReceiverId"));
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsSentRealtime")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("NotificationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReceiverUserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("NotiReceiverId");
-
-                    b.HasIndex("NotificationId");
-
-                    b.HasIndex("ReceiverUserId");
-
-                    b.ToTable("NotificationReceivers");
-                });
-
             modelBuilder.Entity("SpotifyAPI.Models.Plan", b =>
                 {
                     b.Property<int>("PlanId")
@@ -343,7 +288,7 @@ namespace SpotifyAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SongID"));
 
-                    b.Property<int?>("AlbumID")
+                    b.Property<int>("AlbumID")
                         .HasColumnType("integer");
 
                     b.Property<int>("ArtistID")
@@ -353,7 +298,7 @@ namespace SpotifyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<TimeSpan?>("Duration")
+                    b.Property<TimeSpan>("Duration")
                         .HasColumnType("interval");
 
                     b.Property<string>("Image")
@@ -369,9 +314,6 @@ namespace SpotifyAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("TrackNumber")
                         .HasColumnType("integer");
@@ -630,35 +572,6 @@ namespace SpotifyAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SpotifyAPI.Models.Notification", b =>
-                {
-                    b.HasOne("SpotifyAPI.Models.User", "Sender")
-                        .WithMany("SentNotifications")
-                        .HasForeignKey("SenderUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Sender");
-                });
-
-            modelBuilder.Entity("SpotifyAPI.Models.NotificationReceiver", b =>
-                {
-                    b.HasOne("SpotifyAPI.Models.Notification", "Notification")
-                        .WithMany("NotificationReceivers")
-                        .HasForeignKey("NotificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SpotifyAPI.Models.User", "Receiver")
-                        .WithMany("NotificationReceivers")
-                        .HasForeignKey("ReceiverUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Notification");
-
-                    b.Navigation("Receiver");
-                });
-
             modelBuilder.Entity("SpotifyAPI.Models.Playlist", b =>
                 {
                     b.HasOne("SpotifyAPI.Models.User", "User")
@@ -693,7 +606,9 @@ namespace SpotifyAPI.Migrations
                 {
                     b.HasOne("SpotifyAPI.Models.Album", "Album")
                         .WithMany("Songs")
-                        .HasForeignKey("AlbumID");
+                        .HasForeignKey("AlbumID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SpotifyAPI.Models.Artist", "Artist")
                         .WithMany("Songs")
@@ -805,11 +720,6 @@ namespace SpotifyAPI.Migrations
                     b.Navigation("SongGenres");
                 });
 
-            modelBuilder.Entity("SpotifyAPI.Models.Notification", b =>
-                {
-                    b.Navigation("NotificationReceivers");
-                });
-
             modelBuilder.Entity("SpotifyAPI.Models.Playlist", b =>
                 {
                     b.Navigation("LikedByUsers");
@@ -846,11 +756,7 @@ namespace SpotifyAPI.Migrations
 
                     b.Navigation("ListeningHistories");
 
-                    b.Navigation("NotificationReceivers");
-
                     b.Navigation("Playlists");
-
-                    b.Navigation("SentNotifications");
 
                     b.Navigation("Subscriptions");
                 });
