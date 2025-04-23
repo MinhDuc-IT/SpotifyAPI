@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
 using SpotifyAPI.Hubs;
@@ -24,6 +26,8 @@ namespace SpotifyAPI.Controllers
             _userService = userService;
             _notificationService = notificationService;
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> GetAllSong(int page = 1, int limit = 10)
@@ -115,9 +119,13 @@ namespace SpotifyAPI.Controllers
             return Ok("Song deleted successfully.");
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 4ff33f2c5d655d59abb6867f82c8fa5d34e0adf2
+=======
+
+>>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
 
         [HttpGet("{songId}/lyric")]
         public async Task<IActionResult> GetLyricAsync(int songId)
@@ -163,8 +171,11 @@ namespace SpotifyAPI.Controllers
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
         [HttpGet("search")]
         public async Task<IActionResult> SearchSongsByName([FromQuery] string keyword, int page = 1)
         {
@@ -177,6 +188,10 @@ namespace SpotifyAPI.Controllers
             var result = await _songService.SearchSongsByNameAsync(keyword, page, limit);
             return Ok(result);
         }
+<<<<<<< HEAD
 >>>>>>> 4ff33f2c5d655d59abb6867f82c8fa5d34e0adf2
+=======
+
+>>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
     }
 }

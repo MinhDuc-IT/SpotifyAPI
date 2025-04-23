@@ -105,7 +105,14 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
 builder.Services.AddScoped<ISongService, SongService>();
+
+builder.Services.AddScoped<IListeningHistoryService, ListeningHistoryService>();
+builder.Services.AddScoped<ILikedSongService, LikedSongService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
+
+
 builder.Services.AddScoped<INotificationService, NotificationService>();
+
 builder.Services.AddScoped<CloudinaryService>();
 
 // Config Cloudinary
@@ -120,14 +127,20 @@ builder.Services.AddSingleton(new Cloudinary(account));
 
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
+<<<<<<< HEAD
 
 builder.Services.AddHttpClient();
 
 
 builder.Services.AddSignalR();
 
+=======
+// Add SignalR
+builder.Services.AddSignalR();
+>>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
 
 builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

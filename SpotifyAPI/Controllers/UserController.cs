@@ -5,6 +5,8 @@ using SpotifyAPI.Models;
 
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace SpotifyAPI.Controllers
@@ -14,24 +16,41 @@ namespace SpotifyAPI.Controllers
     public class UserController : ControllerBase
     {
 
-        [HttpGet("profile")]
-        public IActionResult GetUserProfile()
-        {
-            var user = new User
-            {
-                UserID = 1,
-                Email = "example@spotify.com",
-                Password = "hashedpassword123", // Ideally, passwords should be hashed
-                FullName = "John Doe",
-                Avatar = null,
-                DateJoined = DateTime.UtcNow,
-                SubscriptionType = "Free",
-                Role = "User",
-                Subscriptions = new List<UserSubscription>(),
-                Playlists = new List<Playlist>()
-            };
+        //[HttpGet("profile")]
+        //public IActionResult GetUserProfile()
+        //{
+        //    var user = new User
+        //    {
+        //        UserID = 1,
+        //        Email = "example@spotify.com",
+        //        Password = "hashedpassword123", // Ideally, passwords should be hashed
+        //        FullName = "John Doe",
+        //        Avatar = null,
+        //        DateJoined = DateTime.UtcNow,
+        //        SubscriptionType = "Free",
+        //        Role = "User",
+        //        Subscriptions = new List<UserSubscription>(),
+        //        Playlists = new List<Playlist>()
+        //    };
 
-            return Ok(user);
+        //    return Ok(user);
+        //}
+
+        [Authorize(Roles = "User")]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier); // hoặc "sub" nếu bạn dùng JWT chuẩn
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            string userId = userIdClaim.Value;
+
+            var userDto = await _userService.demoAsync(userId);
+            if (userDto == null)
+                return NotFound();
+
+            return Ok(userDto);
         }
 
         [HttpGet("recently-played")]
