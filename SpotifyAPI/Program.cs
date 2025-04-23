@@ -27,7 +27,11 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 
 FirebaseApp.Create(new AppOptions()
 {
-    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+
+    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-d42de84563.json"),
+
+    //Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+
 });
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -101,7 +105,14 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
 builder.Services.AddScoped<ISongService, SongService>();
+
+builder.Services.AddScoped<IListeningHistoryService, ListeningHistoryService>();
+builder.Services.AddScoped<ILikedSongService, LikedSongService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
+
+
 builder.Services.AddScoped<INotificationService, NotificationService>();
+
 builder.Services.AddScoped<CloudinaryService>();
 
 // Config Cloudinary
@@ -120,6 +131,7 @@ builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

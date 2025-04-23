@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
 using SpotifyAPI.Hubs;
@@ -24,6 +26,8 @@ namespace SpotifyAPI.Controllers
             _userService = userService;
             _notificationService = notificationService;
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> GetAllSong(int page = 1, int limit = 10)
@@ -115,6 +119,7 @@ namespace SpotifyAPI.Controllers
             return Ok("Song deleted successfully.");
         }
 
+
         [HttpGet("{songId}/lyric")]
         public async Task<IActionResult> GetLyricAsync(int songId)
         {
@@ -170,5 +175,6 @@ namespace SpotifyAPI.Controllers
             var result = await _songService.SearchSongsByNameAsync(keyword, page, limit);
             return Ok(result);
         }
+
     }
 }
