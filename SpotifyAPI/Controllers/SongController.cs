@@ -118,14 +118,7 @@ namespace SpotifyAPI.Controllers
                 return NotFound("Song not found.");
             return Ok("Song deleted successfully.");
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 4ff33f2c5d655d59abb6867f82c8fa5d34e0adf2
-=======
-
->>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
 
         [HttpGet("{songId}/lyric")]
         public async Task<IActionResult> GetLyricAsync(int songId)
@@ -170,12 +163,7 @@ namespace SpotifyAPI.Controllers
             return result;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
         [HttpGet("search")]
         public async Task<IActionResult> SearchSongsByName([FromQuery] string keyword, int page = 1)
         {
@@ -188,10 +176,6 @@ namespace SpotifyAPI.Controllers
             var result = await _songService.SearchSongsByNameAsync(keyword, page, limit);
             return Ok(result);
         }
-<<<<<<< HEAD
->>>>>>> 4ff33f2c5d655d59abb6867f82c8fa5d34e0adf2
-=======
 
->>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
     }
 }

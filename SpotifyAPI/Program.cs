@@ -127,17 +127,14 @@ builder.Services.AddSingleton(new Cloudinary(account));
 
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
-<<<<<<< HEAD
+
 
 builder.Services.AddHttpClient();
 
 
 builder.Services.AddSignalR();
 
-=======
-// Add SignalR
-builder.Services.AddSignalR();
->>>>>>> acbd2d7e35dc9ecae09bfcde95d8d8f3d63d7603
+
 
 builder.Services.AddHttpClient();
 
