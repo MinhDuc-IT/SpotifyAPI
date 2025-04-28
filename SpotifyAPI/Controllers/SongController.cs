@@ -27,12 +27,12 @@ namespace SpotifyAPI.Controllers
             _notificationService = notificationService;
         }
 
-        
-
         [HttpGet]
         public async Task<IActionResult> GetAllSong(int page = 1, int limit = 10)
         {
-            var result = await _songService.GetAllSongsAsync(page, limit);
+            var user = HttpContext.User;
+            var uid = user.FindFirst("user_id")?.Value;
+            var result = await _songService.GetAllSongsAsync(page, limit, uid);
             return Ok(result);
         }
 
@@ -45,7 +45,6 @@ namespace SpotifyAPI.Controllers
             {
                 var user = HttpContext.User;
                 var uid = user.FindFirst("user_id")?.Value;
-                Console.WriteLine($"User ID: {uid}");
 
                 var song = await _songService.CreateSongAsync(request, uid);
 

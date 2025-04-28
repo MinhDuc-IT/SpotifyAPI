@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SpotifyAPI.Models
 {
@@ -17,6 +18,13 @@ namespace SpotifyAPI.Models
 
         public DateTime FormedDate { get; set; }
 
+        //[ForeignKey("User")]
+        public int UserID { get; set; }
+
+        [JsonIgnore]
+        public User User { get; set; }
+
+        [JsonIgnore]
         public ICollection<Song> Songs { get; set; }
         public ICollection<Album> Albums { get; set; }
         public ICollection<ArtistFollow> Followers { get; set; } = new List<ArtistFollow>();

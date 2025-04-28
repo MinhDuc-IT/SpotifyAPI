@@ -36,7 +36,7 @@ namespace SpotifyAPI.Services
                     Album = s.Album.AlbumName,
                     AlbumID = s.Album.AlbumID,
                     ThumbnailUrl = s.Image,
-                    Duration = s.Duration,
+                    //Duration = s.Duration,
                     AudioUrl = s.Audio
                 })
                 .ToListAsync();
