@@ -14,6 +14,7 @@ namespace SpotifyAPI.Services
     {
         Task<List<SongDto>> GetListeningHistoryAsync(string userIdToken, int limit = 4);
         Task<List<ArtistDto>> GetTopArtistsAsync(string userIdToken, int limit = 5);
+        Task<bool> AddAsync(string userIdToken, int songId, string? deviceInfo = null);
     }
 
     public class ListeningHistoryService : IListeningHistoryService
@@ -86,6 +87,38 @@ namespace SpotifyAPI.Services
                 .ToListAsync();
 
             return topArtists;
+        }
+
+        public async Task<bool> AddAsync(string userIdToken, int songId, string? deviceInfo = null)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
+            if (user == null)
+                throw new ArgumentException("Invalid user.");
+
+            var song = await _context.Songs.FindAsync(songId);
+            if (song == null)
+                throw new ArgumentException("Song not found.");
+
+            var history = new ListeningHistory
+            {
+                UserID = user.UserID,
+                SongId = songId,
+                PlayedAt = DateTime.UtcNow,
+                DeviceInfo = deviceInfo ?? "Unknown"
+            };
+
+            try
+            {
+                _context.ListeningHistories.Add(history);
+                await _context.SaveChangesAsync();
+                Console.WriteLine($"History added: UserID={user.UserID}, SongID={songId}, Device={deviceInfo}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to add listening history: {ex.Message}");
+                return false;
+            }
         }
     }
 }

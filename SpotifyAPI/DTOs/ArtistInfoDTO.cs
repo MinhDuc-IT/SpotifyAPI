@@ -7,5 +7,6 @@
         public string? Bio { get; set; }
         public string? Image { get; set; }
         public DateTime FormedDate { get; set; }
+        public bool IsFollowed { get; set; }
     }
 }
