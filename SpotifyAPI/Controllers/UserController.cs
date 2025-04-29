@@ -46,7 +46,7 @@ namespace SpotifyAPI.Controllers
 
             string userId = userIdClaim.Value;
 
-            var userDto = await _userService.demoAsync(userId);
+            var userDto = await _userService.GetUserByFirebaseUidAsync(userId);
             if (userDto == null)
                 return NotFound();
 

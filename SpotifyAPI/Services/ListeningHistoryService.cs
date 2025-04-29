@@ -29,7 +29,7 @@ namespace SpotifyAPI.Services
         public async Task<List<SongDto>> GetListeningHistoryAsync(string userIdToken, int limit = 4)
         {
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.FullName == userIdToken);
+                .FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
 
             if (user == null)
                 return null;
@@ -58,7 +58,7 @@ namespace SpotifyAPI.Services
         {
             // Lấy thông tin người dùng từ tên người dùng (userIdToken)
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.FullName == userIdToken);
+                .FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
 
             if (user == null)
                 return null;
