@@ -90,8 +90,10 @@ namespace SpotifyAPI.Data
                 .HasForeignKey(ls => ls.SongID);
 
             //ListeningHistory
+            //modelBuilder.Entity<ListeningHistory>()
+            //    .HasKey(lh => new { lh.UserID, lh.SongId });  // Khóa chính tổng hợp
             modelBuilder.Entity<ListeningHistory>()
-                .HasKey(lh => new { lh.UserID, lh.SongId });  // Khóa chính tổng hợp
+                .HasKey(lh => lh.Id);
 
             modelBuilder.Entity<ListeningHistory>()
                 .HasOne(lh => lh.User)
