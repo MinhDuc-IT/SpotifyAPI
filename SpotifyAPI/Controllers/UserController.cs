@@ -36,7 +36,7 @@ namespace SpotifyAPI.Controllers
         //    return Ok(user);
         //}
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpGet("profile")]
         public async Task<IActionResult> GetUserProfile()
         {
@@ -140,7 +140,7 @@ namespace SpotifyAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(int id)
+        public async Task<ActionResult<UserDto>> GetUser(string id)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)

@@ -12,7 +12,7 @@ namespace SpotifyAPI.Services
 {
     public interface ISongService
     {
-        Task<object> GetAllSongsAsync(int page, int limit);
+        Task<object> GetAllSongsAsync(int page, int limit, string uid);
         Task<object> SearchSongsByNameAsync(string keyword, int page, int limit);
         Task<Song> CreateSongAsync(CreateSongDTO request, string uid);
         Task<Song> UpdateSongAsync(int id, UpdateSongDTO request);
@@ -33,8 +33,6 @@ namespace SpotifyAPI.Services
         private readonly ILogger<SongService> _logger;
         private readonly HttpClient _httpClient;
 
-        
-
         public SongService(SpotifyDbContext context, CloudinaryService cloudinaryService, ILogger<SongService> logger, IHttpClientFactory httpClientFactory)
         {
             _context = context;
@@ -44,12 +42,22 @@ namespace SpotifyAPI.Services
 
         }
 
-        public async Task<object> GetAllSongsAsync(int page, int limit)
+        public async Task<object> GetAllSongsAsync(int page, int limit, string uid)
         {
-            var totalItems = await _context.Songs.CountAsync();
+            var Artist = await _context.Users
+                .Include(u => u.ArtistProfile)
+                .FirstOrDefaultAsync(u => u.FirebaseUid == uid && u.Role == "Artist");
+
+            if (Artist == null || Artist.ArtistProfile == null)
+                throw new Exception("Artist profile not found.");
+
+            var totalItems = await _context.Songs
+                .Where(s => s.ArtistID == Artist.ArtistProfile.ArtistID)
+                .CountAsync();
             var totalPages = (int)Math.Ceiling(totalItems / (double)limit);
 
             var songs = await _context.Songs
+                .Where(s => s.ArtistID == Artist.ArtistProfile.ArtistID)
                 .OrderBy(s => s.SongID)
                 .Skip((page - 1) * limit)
                 .Take(limit)
@@ -74,12 +82,37 @@ namespace SpotifyAPI.Services
 
         public async Task<object> SearchSongsByNameAsync(string keyword, int page, int limit)
         {
-            var query = _context.Songs
-                .Where(s => s.SongName.ToLower().Contains(keyword.ToLower()));
+            var lowerKeyword = keyword.ToLower();
 
-            var totalItems = await query.CountAsync();
-            var items = await query
-                .OrderBy(s => s.SongName)
+            // Tìm bài hát
+            var songQuery = _context.Songs
+                .Where(s => s.SongName.ToLower().Contains(lowerKeyword)) //&& s.Status == SongStatus.SUCCESS
+                .Select(s => new SearchResult
+                {
+                    Id = s.SongID,
+                    Name = s.SongName,
+                    Image = s.Image,
+                    Audio = s.Audio,
+                    Type = "Song"
+                });
+
+            var artistQuery = _context.Artists
+                .Where(a => a.ArtistName.ToLower().Contains(lowerKeyword))
+                .Select(a => new SearchResult
+                {
+                    Id = a.ArtistID,
+                    Name = a.ArtistName,
+                    Image = a.Image,
+                    Audio = null,
+                    Type = "Artist"
+                });
+
+            var combinedQuery = songQuery.Concat(artistQuery);
+
+            var totalItems = await combinedQuery.CountAsync();
+
+            var items = await combinedQuery
+                .OrderBy(x => x.Name)
                 .Skip((page - 1) * limit)
                 .Take(limit)
                 .ToListAsync();
@@ -93,7 +126,6 @@ namespace SpotifyAPI.Services
             };
         }
 
-
         public async Task<Song> CreateSongAsync(CreateSongDTO request, string uid)
         {
             var imageUrl = await _cloudinaryService.UploadImage(request.Image);
@@ -104,14 +136,19 @@ namespace SpotifyAPI.Services
             if (audioUrl == null)
                 throw new Exception("Audio upload failed.");
 
-            var Artist = await _context.Users.FirstOrDefaultAsync(a => a.FirebaseUid == uid);
+            var Artist = await _context.Users
+                .Include(u => u.ArtistProfile)
+                .FirstOrDefaultAsync(u => u.FirebaseUid == uid && u.Role == "Artist");
+
+            if (Artist == null || Artist.ArtistProfile == null)
+                throw new Exception("Artist profile not found.");
 
             var song = new Song
             {
                 SongName = request.SongName,
                 Audio = audioUrl,
                 Image = imageUrl,
-                ArtistID = 1, // TODO: lấy từ claim sau
+                ArtistID = Artist.ArtistProfile.ArtistID,
                 PlayCount = 0,
             };
 
@@ -160,7 +197,6 @@ namespace SpotifyAPI.Services
             await _context.SaveChangesAsync();
             return true;
         }
-
 
         public async Task<Song> CreateLyricAsync(int songId, CreateLyricDTO lyricDTO)
         {

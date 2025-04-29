@@ -29,7 +29,7 @@ namespace SpotifyAPI.Services
 
         public async Task<List<SongDto>> GetLikedSongsAsync(string userIdToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == userIdToken);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
 
             if (user == null)
                 return null;
@@ -45,7 +45,7 @@ namespace SpotifyAPI.Services
                     ArtistName = ls.Song.Artist.ArtistName,
                     Album = ls.Song.Album.AlbumName,
                     ThumbnailUrl = ls.Song.Image,
-                    Duration = ls.Song.Duration,
+                    //Duration = ls.Song.Duration,
                     AudioUrl = ls.Song.Audio
                 }).ToListAsync();
 

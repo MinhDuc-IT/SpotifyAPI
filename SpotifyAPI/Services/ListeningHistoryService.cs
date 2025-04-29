@@ -44,9 +44,9 @@ namespace SpotifyAPI.Services
                     Title = h.Song.SongName,
                     ArtistName = h.Song.Artist.ArtistName,
                     Album = h.Song.Album.AlbumName,
-                    AlbumID = h.Song.AlbumID,
+                    AlbumID = h.Song.AlbumID ?? 0,
                     ThumbnailUrl = h.Song.Image,
-                    Duration = h.Song.Duration,
+                    //Duration = h.Song.Duration ?? null,
                     AudioUrl = h.Song.Audio,
                 })
                 .ToListAsync();

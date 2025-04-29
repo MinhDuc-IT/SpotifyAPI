@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SpotifyAPI.Models
 {
@@ -18,9 +19,12 @@ namespace SpotifyAPI.Models
 
         // Người gửi (nếu cần)
         public int? SenderUserId { get; set; }
+
+        [JsonIgnore]
         public User? Sender { get; set; }
 
         // Navigation
+        [JsonIgnore]
         public ICollection<NotificationReceiver> NotificationReceivers { get; set; } = new List<NotificationReceiver>();
     }
 }
