@@ -7,7 +7,7 @@ namespace SpotifyAPI.DTOs
         [MaxLength(100)]
         public string? FullName { get; set; }
 
-        public string? Avatar { get; set; }
+        public IFormFile? Avatar { get; set; }
 
         public string? SubscriptionType { get; set; }  // "Free" or "Premium"
 

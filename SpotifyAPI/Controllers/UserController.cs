@@ -7,6 +7,7 @@ using SpotifyAPI.DTOs;
 using SpotifyAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SpotifyAPI.Controllers
@@ -162,13 +163,28 @@ namespace SpotifyAPI.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = createdUser.UserID }, createdUser);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserUpdateDto userUpdateDto)
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserUpdateDto userUpdateDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var updatedUser = await _userService.UpdateUserAsync(id, userUpdateDto);
+        //    if (updatedUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(updatedUser);
+        //}
+
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult<UserDto>> UpdateUser([FromForm] UserUpdateDto userUpdateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var updatedUser = await _userService.UpdateUserAsync(id, userUpdateDto);
+            var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var updatedUser = await _userService.UpdateUserAsync(firebaseId, userUpdateDto);
             if (updatedUser == null)
             {
                 return NotFound();
@@ -185,6 +201,28 @@ namespace SpotifyAPI.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [HttpGet("follow-info")]
+        [Authorize]
+        public async Task<IActionResult> GetFollowInfo([FromQuery] int? artistId)
+        {
+            var firebaseId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var followInfo = await _userService.GetFollowInfoAsync(firebaseId, artistId);
+            return Ok(followInfo);
+        }
+
+        [HttpPost("upload-avatar")]
+        [Authorize]
+        public async Task<IActionResult> UploadAvatar([FromForm] IFormFile avatar)
+        {
+            if (avatar == null || avatar.Length == 0)
+                return BadRequest("File ảnh không hợp lệ.");
+
+            var avatarUrl = await _userService.UploadAvatar(avatar);
+
+            return Ok(new { photoUrl = avatarUrl });
         }
     }
 }

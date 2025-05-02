@@ -13,9 +13,11 @@ namespace SpotifyAPI.Services
         Task<(IEnumerable<UserDto> Users, int TotalCount)> GetUsersAsync(int pageNumber, int pageSize);
         Task<UserDto> GetUserByIdAsync(string userId);
         Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto);
-        Task<UserDto> UpdateUserAsync(int userId, UserUpdateDto userUpdateDto);
+        Task<UserDto> UpdateUserAsync(string firebaseId, UserUpdateDto userUpdateDto);
         Task<bool> DeleteUserAsync(int userId);
         Task<UserDto> GetUserByFirebaseUidAsync(string userId);
+        Task<FollowInfoDto> GetFollowInfoAsync(string firebaseId, int? artistId);
+        Task<string> UploadAvatar(IFormFile avatar);
     }
 
     public class UserService : IUserService
@@ -23,12 +25,14 @@ namespace SpotifyAPI.Services
         private readonly SpotifyDbContext _context;
         private readonly IFirebaseUserSyncService _firebaseUserAsyncService;
         private readonly IArtistService _artistService;
+        private readonly CloudinaryService _cloudinaryService;
 
-        public UserService(SpotifyDbContext context, IFirebaseUserSyncService firebaseUserAsyncService, IArtistService artistService )
+        public UserService(SpotifyDbContext context, IFirebaseUserSyncService firebaseUserAsyncService, IArtistService artistService, CloudinaryService cloudinaryService)
         {
             _context = context;
             _firebaseUserAsyncService = firebaseUserAsyncService;
             _artistService = artistService;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role, string provider, string photoUrl)
@@ -175,28 +179,31 @@ namespace SpotifyAPI.Services
             };
         }
 
-        public async Task<UserDto> UpdateUserAsync(int userId, UserUpdateDto userUpdateDto)
+        public async Task<UserDto> UpdateUserAsync(string firebaseId, UserUpdateDto userUpdateDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == firebaseId);
 
             if (user != null)
             {
                 user.FullName = userUpdateDto.FullName ?? user.FullName;
                 user.Role = userUpdateDto.Role ?? user.Role;
-                user.Avatar = userUpdateDto.Avatar ?? user.Avatar;
+
+                var avartarUrl = await _cloudinaryService.UploadImage(userUpdateDto.Avatar);
+                user.Avatar = avartarUrl ?? user.Avatar;
+
                 user.SubscriptionType = userUpdateDto.SubscriptionType ?? user.SubscriptionType;
 
                 await _context.SaveChangesAsync();
 
                 // Cập nhật Firebase nếu có UID
-                if (!string.IsNullOrEmpty(user.FullName))
-                {
-                    await _firebaseUserAsyncService.UpdateUserAsync(
-                        user.FullName,
-                        user.FullName,
-                        user.Avatar
-                    );
-                }
+                //if (!string.IsNullOrEmpty(user.FullName))
+                //{
+                //    await _firebaseUserAsyncService.UpdateUserAsync(
+                //        user.FullName,
+                //        user.FullName,
+                //        user.Avatar
+                //    );
+                //}
 
                 // Trả về UserDto
                 return new UserDto
@@ -228,6 +235,54 @@ namespace SpotifyAPI.Services
             }
 
             return true;
+        }
+
+        public async Task<FollowInfoDto> GetFollowInfoAsync(string firebaseId, int? artistId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == firebaseId);
+            if (user == null)
+            {
+                return new FollowInfoDto
+                {
+                    FollowerCount = 0,
+                    FollowingCount = 0,
+                    IsFollowedByCurrentUser = false,
+                };
+            }
+
+            // Số người theo dõi user này
+            var followerCount = await _context.UserFollows
+                .CountAsync(f => f.FollowedUserId == user.UserID);
+
+            // Số người user này đang theo dõi
+            var followingUserCount = await _context.UserFollows
+                .CountAsync(f => f.FollowerId == user.UserID);
+
+            // Số nghệ sĩ user này đang theo dõi (nếu cần dùng riêng)
+            var followingArtistCount = await _context.ArtistFollows
+                .CountAsync(f => f.UserID == user.UserID);
+
+            // Có đang follow artist (nếu artistId được truyền)
+            bool isFollowed = false;
+            if (artistId.HasValue)
+            {
+                isFollowed = await _context.ArtistFollows.AnyAsync(f =>
+                    f.ArtistId == artistId.Value &&
+                    f.UserID == user.UserID);
+            }
+
+            return new FollowInfoDto
+            {
+                FollowerCount = followerCount,
+                FollowingCount = followingUserCount + followingArtistCount,
+                IsFollowedByCurrentUser = isFollowed
+            };
+        }
+
+        public async Task<string> UploadAvatar(IFormFile avatar)
+        {
+            var avartarUrl = await _cloudinaryService.UploadImage(avatar);
+            return avartarUrl;
         }
     }
 }
