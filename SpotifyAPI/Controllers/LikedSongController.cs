@@ -16,7 +16,7 @@ namespace SpotifyAPI.Controllers
             _likedSongService = likedSongService;
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpGet("liked-song")]
         public async Task<IActionResult> GetLikedSongs()
         {
@@ -30,7 +30,7 @@ namespace SpotifyAPI.Controllers
             return Ok(likedSongs);
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPost("like/{songId}")]
         public async Task<IActionResult> LikeSong(int songId)
         {
@@ -41,7 +41,7 @@ namespace SpotifyAPI.Controllers
             return success ? Ok("Liked") : BadRequest("Already liked or user not found");
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpDelete("dislike/{songId}")]
         public async Task<IActionResult> DislikeSong(int songId)
         {

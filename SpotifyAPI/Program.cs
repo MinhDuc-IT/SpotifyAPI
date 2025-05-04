@@ -101,6 +101,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IArtistService, ArtistService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 builder.Services.AddScoped<IFirebaseUserSyncService, FirebaseUserSyncService>();
 
@@ -109,8 +111,8 @@ builder.Services.AddScoped<ISongService, SongService>();
 builder.Services.AddScoped<IListeningHistoryService, ListeningHistoryService>();
 builder.Services.AddScoped<ILikedSongService, LikedSongService>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
-
-
+builder.Services.AddScoped<IArtistInfoService, ArtistInfoService>();
+builder.Services.AddScoped<IArtistFollowService, ArtistFollowService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<CloudinaryService>();

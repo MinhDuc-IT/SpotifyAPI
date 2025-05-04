@@ -4,6 +4,8 @@ namespace SpotifyAPI.Models
 {
     public class ListeningHistory
     {
+        public int Id { get; set; }
+
         public int UserID { get; set; }
         //[ForeignKey(nameof(UserID))]
         public User User { get; set; }

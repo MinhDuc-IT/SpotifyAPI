@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     public class User
     {
@@ -43,7 +44,10 @@
         public string SubscriptionType { get; set; }  // "Free" or "Premium"
 
         [Required]
-        public string Role { get; set; }  // "User" or "Admin"
+        public string Role { get; set; }  // "User" or "Admin" or "Artist"
+
+        [JsonIgnore]
+        public Artist? ArtistProfile { get; set; }
 
         // Navigation
         public ICollection<UserSubscription> Subscriptions { get; set; }
@@ -56,6 +60,8 @@
         public ICollection<UserFollow> Following { get; set; } = new List<UserFollow>();  // Những người mà User đang theo dõi
         public ICollection<UserFollow> Followers { get; set; } = new List<UserFollow>();  // Những người theo dõi User
         public ICollection<NotificationReceiver> NotificationReceivers { get; set; } = new List<NotificationReceiver>();
+        [JsonIgnore]
         public ICollection<Notification> SentNotifications { get; set; } = new List<Notification>();
+        public ICollection<SearchHistory> SearchHistories { get; set; } = new List<SearchHistory>();
     }
 }

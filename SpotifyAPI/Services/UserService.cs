@@ -2,6 +2,7 @@
 using SpotifyAPI.Data;
 using SpotifyAPI.DTOs;
 using SpotifyAPI.Models;
+using SpotifyAPI.Services;
 
 namespace SpotifyAPI.Services
 {
@@ -10,22 +11,24 @@ namespace SpotifyAPI.Services
         Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role, string provider, string photoUrl);
         Task<List<User>> GetAllAdminsAsync();
         Task<(IEnumerable<UserDto> Users, int TotalCount)> GetUsersAsync(int pageNumber, int pageSize);
-        Task<UserDto> GetUserByIdAsync(int userId);
+        Task<UserDto> GetUserByIdAsync(string userId);
         Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto);
         Task<UserDto> UpdateUserAsync(int userId, UserUpdateDto userUpdateDto);
         Task<bool> DeleteUserAsync(int userId);
-        Task<UserDto> demoAsync(string userId);
+        Task<UserDto> GetUserByFirebaseUidAsync(string userId);
     }
 
     public class UserService : IUserService
     {
         private readonly SpotifyDbContext _context;
         private readonly IFirebaseUserSyncService _firebaseUserAsyncService;
+        private readonly IArtistService _artistService;
 
-        public UserService(SpotifyDbContext context, IFirebaseUserSyncService firebaseUserAsyncService)
+        public UserService(SpotifyDbContext context, IFirebaseUserSyncService firebaseUserAsyncService, IArtistService artistService )
         {
             _context = context;
             _firebaseUserAsyncService = firebaseUserAsyncService;
+            _artistService = artistService;
         }
 
         public async Task<User> GetOrCreateUserAsync(string email, string firebaseName, string firebaseUid, string role, string provider, string photoUrl)
@@ -50,6 +53,11 @@ namespace SpotifyAPI.Services
 
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
+            }
+
+            if(role == "Artist")
+            {
+                await _artistService.CreateArtistAsync(user.UserID, user.FullName);
             }
 
             return user;
@@ -89,10 +97,10 @@ namespace SpotifyAPI.Services
             return (userDtos, totalCount);
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int userId)
+        public async Task<UserDto> GetUserByIdAsync(string userId)
         {
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.UserID == userId);
+                .FirstOrDefaultAsync(u => u.FirebaseUid == userId);
 
             if (user == null)
                 return null;
@@ -110,10 +118,10 @@ namespace SpotifyAPI.Services
             };
         }
 
-        public async Task<UserDto> demoAsync(string userId)
+        public async Task<UserDto> GetUserByFirebaseUidAsync(string userId)
         {
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.FullName == userId);
+                .FirstOrDefaultAsync(u => u.FirebaseUid == userId);
 
             if (user == null)
                 return null;

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SpotifyAPI.Data;
@@ -11,9 +12,11 @@ using SpotifyAPI.Data;
 namespace SpotifyAPI.Migrations
 {
     [DbContext(typeof(SpotifyDbContext))]
-    partial class SpotifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425143008_AddSearchHistory")]
+    partial class AddSearchHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,11 +179,11 @@ namespace SpotifyAPI.Migrations
 
             modelBuilder.Entity("SpotifyAPI.Models.ListeningHistory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserID")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<int>("SongId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("DeviceInfo")
                         .IsRequired()
@@ -189,17 +192,9 @@ namespace SpotifyAPI.Migrations
                     b.Property<DateTime>("PlayedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("SongId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserID", "SongId");
 
                     b.HasIndex("SongId");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("ListeningHistories");
                 });
@@ -357,25 +352,11 @@ namespace SpotifyAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SearchID"));
 
-                    b.Property<string>("AudioURL")
+                    b.Property<string>("Query")
                         .HasColumnType("text");
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ResultID")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime>("SearchedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("UserID")
                         .HasColumnType("integer");

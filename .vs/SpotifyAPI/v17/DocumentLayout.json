@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,8 +11,28 @@
       "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\dtos\\songdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\spotifyapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
@@ -67,18 +79,6 @@
       "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\song.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\playlistsong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\playlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|d:\\minhduc\\laptrinh\\spotifyappproject\\code\\spotifyapi\\spotifyapi\\models\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EFB6D503-D912-4818-93DF-335C26285EB8}|SpotifyAPI\\SpotifyAPI.csproj|solutionrelative:spotifyapi\\models\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -102,45 +102,105 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Services\\UserService.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\UserService.cs",
-              "RelativeToolTip": "SpotifyAPI\\Services\\UserService.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAiwBAAAAAfAAAAAAAAAA==",
+              "Title": "SongDTO.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\DTOs\\SongDTO.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\DTOs\\SongDTO.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\DTOs\\SongDTO.cs",
+              "RelativeToolTip": "SpotifyAPI\\DTOs\\SongDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T15:44:29.706Z",
+              "WhenOpened": "2025-04-23T14:56:42.718Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "SpotifyAPI\\Controllers\\UserController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAswDUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T18:37:29.235Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Playlist.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Playlist.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\Playlist.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Playlist.cs",
+              "RelativeToolTip": "SpotifyAPI\\Models\\Playlist.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA9wBYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T04:17:20.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "SongService.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\SongService.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Services\\SongService.cs",
               "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\SongService.cs",
               "RelativeToolTip": "SpotifyAPI\\Services\\SongService.cs",
-              "ViewState": "AgIAAOAAAAAAAAAAAAAawO0AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAANQAAAAAAAAAAAAawO0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T17:18:10.2Z",
+              "WhenOpened": "2025-04-23T17:18:10.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Program.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs*",
+              "RelativeToolTip": "SpotifyAPI\\Program.cs*",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAwB4AAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T03:27:03.015Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SpotifyAPI.http",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.http",
-              "RelativeDocumentMoniker": "SpotifyAPI\\SpotifyAPI.http",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.http",
-              "RelativeToolTip": "SpotifyAPI\\SpotifyAPI.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-04-05T03:28:56.656Z"
+              "DocumentIndex": 16,
+              "Title": "SpotifyDbContext.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Data\\SpotifyDbContext.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Data\\SpotifyDbContext.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Data\\SpotifyDbContext.cs",
+              "RelativeToolTip": "SpotifyAPI\\Data\\SpotifyDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T03:26:57.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlaylistSong.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\PlaylistSong.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\PlaylistSong.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\PlaylistSong.cs",
+              "RelativeToolTip": "SpotifyAPI\\Models\\PlaylistSong.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAcwA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T04:17:54.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Song.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Song.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\Song.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Song.cs",
+              "RelativeToolTip": "SpotifyAPI\\Models\\Song.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAowC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T04:18:31.509Z"
             },
             {
               "$type": "Document",
@@ -156,45 +216,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "SpotifyDbContext.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Data\\SpotifyDbContext.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Data\\SpotifyDbContext.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Data\\SpotifyDbContext.cs",
-              "RelativeToolTip": "SpotifyAPI\\Data\\SpotifyDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T03:26:57.014Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SongDTO.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\DTOs\\SongDTO.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\DTOs\\SongDTO.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\DTOs\\SongDTO.cs",
-              "RelativeToolTip": "SpotifyAPI\\DTOs\\SongDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T14:56:42.718Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Controllers\\UserController.cs",
-              "RelativeToolTip": "SpotifyAPI\\Controllers\\UserController.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwDUAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T18:37:29.235Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "SpotifyAPI.http",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.http",
+              "RelativeDocumentMoniker": "SpotifyAPI\\SpotifyAPI.http",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\SpotifyAPI.http",
+              "RelativeToolTip": "SpotifyAPI\\SpotifyAPI.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-04-05T03:28:56.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "SpotifyAPI\\Services\\UserService.cs",
+              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\UserService.cs",
+              "RelativeToolTip": "SpotifyAPI\\Services\\UserService.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAiwBAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-25T15:44:29.706Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "SongController.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Controllers\\SongController.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Controllers\\SongController.cs",
@@ -206,20 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Program.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Program.cs",
-              "RelativeToolTip": "SpotifyAPI\\Program.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAhwBsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T03:27:03.015Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "FileCallbackResult.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Utils\\FileCallbackResult.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Utils\\FileCallbackResult.cs",
@@ -231,7 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "AlbumService.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Services\\AlbumService.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Services\\AlbumService.cs",
@@ -243,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\appsettings.json",
               "RelativeDocumentMoniker": "SpotifyAPI\\appsettings.json",
@@ -255,19 +288,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": ".gitignore",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\.gitignore",
               "RelativeDocumentMoniker": "SpotifyAPI\\.gitignore",
               "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\.gitignore",
               "RelativeToolTip": "SpotifyAPI\\.gitignore",
               "ViewState": "AgIAAMkBAAAAcAxNd7ADwNQBAAAAAAAAAAAAAA==",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAG/SURBVDhPrZRNTgIxFMerDIaEhHgU97JxwUKGGaNeQJdyCY0XUBDWGhg4AB\u002BuvQk7OQCRFTP1fXWmMxUMCT94ee177eu/LVQdFK31kTSJ0WgEIa0SMJ2A6QTHcF9iicQqlYpa/6zv2\u002B2HD5nuEkWR/l4udRzHZBtjGzFor1YrPR6P9WKx0MNhpN96vTuZThyLJ1AJLK/iJFFxjBanBsXIozqkWq2qev1c1Wq19063e0ZBwBNP4JaQ6WRC/i8ajQb5wWBAvnxyghpOqQPkC8L5IEEQKjgxaqOTFsCd65tb6nmlkur1\u002BxwXCgX58KfT7QptwvCK52wrSLcJvtUKOABkQ6HFXwbGsmMRBkchzpjNphLZDSrEn5G1qnsp\u002BPEtheloXouRnXDTTjhb5tXmeyg0IgzuliHp\u002By0OANbiOCDXp1IYo3mMUxBT8/mMA/8QhGH6ZzC4Zwi5ZqoQB9M3h62I/\u002B/SAQpniBmtPvdQyGeYUdgyX8pl05eIBSxmTzQYEYbc42AuJQWLGJNQEcrJG4A4BTHneSW2sqfKOyybkxXMPbAvrx3IsyLzkPJFmUcWYtDntjG6lIvnp8cvKXNIlPoFvstpJRlQPIAAAAAASUVORK5CYII=",
               "WhenOpened": "2025-04-16T10:19:29.422Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "20250416133932_updateUser.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Migrations\\20250416133932_updateUser.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Migrations\\20250416133932_updateUser.cs",
@@ -276,30 +309,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-16T13:39:33.451Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Song.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Song.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\Song.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Song.cs",
-              "RelativeToolTip": "SpotifyAPI\\Models\\Song.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA1wCEAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T04:18:31.509Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "PlaylistSong.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\PlaylistSong.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\PlaylistSong.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\PlaylistSong.cs",
-              "RelativeToolTip": "SpotifyAPI\\Models\\PlaylistSong.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T04:17:54.559Z"
             },
             {
               "$type": "Document",
@@ -327,19 +336,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Playlist.cs",
-              "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Playlist.cs",
-              "RelativeDocumentMoniker": "SpotifyAPI\\Models\\Playlist.cs",
-              "ToolTip": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\Playlist.cs",
-              "RelativeToolTip": "SpotifyAPI\\Models\\Playlist.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBYAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T04:17:20.849Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "20250405063612_Initial.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Migrations\\20250405063612_Initial.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Migrations\\20250405063612_Initial.cs",
@@ -351,7 +348,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "UserSubscription.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\UserSubscription.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Models\\UserSubscription.cs",
@@ -363,7 +360,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\MinhDuc\\laptrinh\\SpotifyAppProject\\Code\\SpotifyAPI\\SpotifyAPI\\Models\\User.cs",
               "RelativeDocumentMoniker": "SpotifyAPI\\Models\\User.cs",

@@ -27,6 +27,7 @@ namespace SpotifyAPI.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationReceiver> NotificationReceivers { get; set; }
+        public DbSet<SearchHistory> SearchHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,8 +90,10 @@ namespace SpotifyAPI.Data
                 .HasForeignKey(ls => ls.SongID);
 
             //ListeningHistory
+            //modelBuilder.Entity<ListeningHistory>()
+            //    .HasKey(lh => new { lh.UserID, lh.SongId });  // Khóa chính tổng hợp
             modelBuilder.Entity<ListeningHistory>()
-                .HasKey(lh => new { lh.UserID, lh.SongId });  // Khóa chính tổng hợp
+                .HasKey(lh => lh.Id);
 
             modelBuilder.Entity<ListeningHistory>()
                 .HasOne(lh => lh.User)
@@ -162,7 +165,18 @@ namespace SpotifyAPI.Data
                 .WithMany(u => u.NotificationReceivers)
                 .HasForeignKey(nr => nr.ReceiverUserId)
                 .OnDelete(DeleteBehavior.Cascade);
-        }
 
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.ArtistProfile)
+            .WithOne(a => a.User)
+            .HasForeignKey<Artist>(a => a.UserID);
+
+            // SearchHistory
+            modelBuilder.Entity<SearchHistory>()
+                .HasOne(sh => sh.User)
+                .WithMany(u => u.SearchHistories)
+                .HasForeignKey(sh => sh.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
