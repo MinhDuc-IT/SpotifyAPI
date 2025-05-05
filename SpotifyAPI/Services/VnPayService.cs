@@ -142,6 +142,14 @@ public class VnPayService
         if (plan == null)
             return new VnPaymentResponseDto { Success = false };
 
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
+        if (user == null)
+        {
+            return new VnPaymentResponseDto { Success = false };
+        }
+
+        user.SubscriptionType = "Premium";
+
         var subscription = new UserSubscription
         {
             UserID = userId,

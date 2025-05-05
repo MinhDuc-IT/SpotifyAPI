@@ -103,7 +103,7 @@ namespace SpotifyAPI.Controllers
                 .Where(kvp => !string.IsNullOrEmpty(kvp.Value))
                 .Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
 
-            var deepLinkUrl = response.Success
+            var deepLinkUrl = response.VnPayResponseCode == "00"
                 ? $"spotifyminiapp://payment-success?{queryString}"
                 : $"spotifyminiapp://payment-failure?{queryString}";
 
