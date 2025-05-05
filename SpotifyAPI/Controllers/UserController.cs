@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SpotifyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace SpotifyAPI.Controllers
         [HttpGet("profile")]
         public async Task<IActionResult> GetUserProfile()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier); // hoặc "sub" nếu bạn dùng JWT chuẩn
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier); // hoặc "sub" nếu dùng JWT chuẩn
             if (userIdClaim == null)
                 return Unauthorized();
 

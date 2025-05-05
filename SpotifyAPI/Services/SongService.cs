@@ -290,6 +290,8 @@ namespace SpotifyAPI.Services
             }
         }
 
+
+
         //public List<LyricResponseDTO> ParseLyricLines(string[] lines)
         //{
         //    var lyrics = new List<LyricResponseDTO>();

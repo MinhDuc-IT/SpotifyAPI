@@ -51,5 +51,21 @@ namespace SpotifyAPI.Controllers
             var success = await _likedSongService.DislikeSongAsync(songId, userId);
             return success ? Ok("Disliked") : NotFound("Not found or already removed");
         }
+
+        [HttpGet("liked-song-ids")]
+        public async Task<IActionResult> GetLikedSongIds()
+        {
+            //var userIdToken = User.Identity.Name; // hoặc lấy từ JWT nếu có
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            string userIdToken = userIdClaim.Value;
+
+            var songIds = await _likedSongService.GetLikedSongIdsAsync(userIdToken);
+            return Ok(songIds);
+        }
+
     }
 }
