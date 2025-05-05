@@ -482,3 +482,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# giữ lại launchSettings.json
+!**/launchSettings.json
+
