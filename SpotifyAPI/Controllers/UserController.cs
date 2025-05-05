@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SpotifyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {

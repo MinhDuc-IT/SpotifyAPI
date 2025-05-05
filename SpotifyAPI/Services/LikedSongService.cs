@@ -15,6 +15,8 @@ namespace SpotifyAPI.Services
         Task<List<SongDto>> GetLikedSongsAsync(string userIdToken);
         Task<bool> LikeSongAsync(int songId, string userIdentifier);
         Task<bool> DislikeSongAsync(int songId, string userIdentifier);
+        Task<List<int>> GetLikedSongIdsAsync(string userIdToken);
+
     }
 
     public class LikedSongService : ILikedSongService
@@ -26,6 +28,18 @@ namespace SpotifyAPI.Services
             _context = context;
 
         }
+
+        public async Task<List<int>> GetLikedSongIdsAsync(string userIdToken)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == userIdToken);
+            if (user == null) return new List<int>();
+
+            return await _context.LikedSongs
+                .Where(ls => ls.UserID == user.UserID)
+                .Select(ls => ls.SongID)
+                .ToListAsync();
+        }
+
 
         public async Task<List<SongDto>> GetLikedSongsAsync(string userIdToken)
         {

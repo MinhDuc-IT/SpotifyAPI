@@ -35,24 +35,57 @@ namespace SpotifyAPI.Services
             if (user == null)
                 return null;
             var userId = user.UserID;
-            var history = await _context.ListeningHistories
+
+            //var history = await _context.ListeningHistories
+            //    .Where(h => h.UserID == userId)
+            //    .OrderByDescending(h => h.PlayedAt)
+            //    .Take(limit)
+            //    .Select(h => new SongDto
+            //    {
+            //        SongId = h.SongId,
+            //        Title = h.Song.SongName,
+            //        ArtistName = h.Song.Artist.ArtistName,
+            //        Album = h.Song.Album.AlbumName,
+            //        AlbumID = h.Song.AlbumID ?? 0,
+            //        ThumbnailUrl = h.Song.Image,
+            //        //Duration = h.Song.Duration ?? null,
+            //        AudioUrl = h.Song.Audio,
+            //    })
+            //    .ToListAsync();
+
+            //return history;
+
+            // Bước 1: Lấy bản ghi gần nhất của mỗi bài hát, đồng thời Include các quan hệ cần thiết
+            var recentHistory = await _context.ListeningHistories
                 .Where(h => h.UserID == userId)
-                .OrderByDescending(h => h.PlayedAt)
-                .Take(limit)
-                .Select(h => new SongDto
-                {
-                    SongId = h.SongId,
-                    Title = h.Song.SongName,
-                    ArtistName = h.Song.Artist.ArtistName,
-                    Album = h.Song.Album.AlbumName,
-                    AlbumID = h.Song.AlbumID ?? 0,
-                    ThumbnailUrl = h.Song.Image,
-                    //Duration = h.Song.Duration ?? null,
-                    AudioUrl = h.Song.Audio,
-                })
+                .Include(h => h.Song)
+                    .ThenInclude(s => s.Artist)
+                .Include(h => h.Song)
+                    .ThenInclude(s => s.Album)
+                .GroupBy(h => h.SongId)
+                .Select(g => g.OrderByDescending(h => h.PlayedAt).FirstOrDefault())
                 .ToListAsync();
 
-            return history;
+            // Bước 2: Sắp xếp và giới hạn số lượng
+            var limitedHistory = recentHistory
+                .OrderByDescending(h => h.PlayedAt)
+                .Take(limit)
+                .ToList();
+
+            // Bước 3: Tạo DTO
+            var songDtos = limitedHistory.Select(h => new SongDto
+            {
+                SongId = h.SongId,
+                Title = h.Song?.SongName,
+                ArtistName = h.Song?.Artist?.ArtistName,
+                Album = h.Song?.Album?.AlbumName,
+                AlbumID = h.Song?.AlbumID ?? 0,
+                ThumbnailUrl = h.Song?.Image,
+                AudioUrl = h.Song?.Audio,
+            }).ToList();
+
+            return songDtos;
+
         }
 
         public async Task<List<ArtistDto>> GetTopArtistsAsync(string userIdToken, int limit = 5)
