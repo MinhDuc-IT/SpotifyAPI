@@ -224,6 +224,25 @@ namespace SpotifyAPI.Controllers
 
             return Ok(new { photoUrl = avatarUrl });
         }
+
+        [HttpGet("check-subscription")]
+        public async Task<ActionResult<UserSubscriptionDto>> GetSubscriptionType()
+        {
+            try
+            {
+                var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                if (string.IsNullOrEmpty(firebaseId))
+                {
+                    return Unauthorized(new { Message = "Invalid token or missing Firebase UID." });
+                }
+                var subscriptionType = await _userService.GetSubscriptionTypeAsync(firebaseId);
+                return Ok(subscriptionType);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
     }
 }
 
