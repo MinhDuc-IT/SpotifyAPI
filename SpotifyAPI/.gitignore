@@ -66,7 +66,7 @@ obj/
 *.exe
 *.pdb
 *.cache
-*.json
+
 *.deps.json
 *.g.props
 *.g.cs
