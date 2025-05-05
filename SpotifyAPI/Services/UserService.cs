@@ -18,6 +18,7 @@ namespace SpotifyAPI.Services
         Task<UserDto> GetUserByFirebaseUidAsync(string userId);
         Task<FollowInfoDto> GetFollowInfoAsync(string firebaseId, int? artistId);
         Task<string> UploadAvatar(IFormFile avatar);
+        Task<UserSubscriptionDto> GetSubscriptionTypeAsync(string firebaseId);
     }
 
     public class UserService : IUserService
@@ -283,6 +284,29 @@ namespace SpotifyAPI.Services
         {
             var avartarUrl = await _cloudinaryService.UploadImage(avatar);
             return avartarUrl;
+        }
+
+        public async Task<UserSubscriptionDto> GetSubscriptionTypeAsync(string firebaseId)
+        {
+            var user = await _context.Users
+                .Where(u => u.FirebaseUid == firebaseId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var userSubscription = await _context.UserSubscriptions
+                .Where(us => us.UserID == user.UserID)
+                .OrderByDescending(us => us.EndDate)
+                .FirstOrDefaultAsync();
+
+            return new UserSubscriptionDto
+            {
+                SubscriptionType = user.SubscriptionType,
+                PremiumExpiryDate = user.SubscriptionType == "Premium" ? userSubscription?.EndDate : null
+            };
         }
     }
 }

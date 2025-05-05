@@ -124,24 +124,25 @@ namespace SpotifyAPI.Services
 
         public async Task<bool> AddAsync(string userIdToken, int songId, string? deviceInfo = null)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
-            if (user == null)
-                throw new ArgumentException("Invalid user.");
-
-            var song = await _context.Songs.FindAsync(songId);
-            if (song == null)
-                throw new ArgumentException("Song not found.");
-
-            var history = new ListeningHistory
-            {
-                UserID = user.UserID,
-                SongId = songId,
-                PlayedAt = DateTime.UtcNow,
-                DeviceInfo = deviceInfo ?? "Unknown"
-            };
-
             try
             {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
+                if (user == null)
+                    throw new ArgumentException("Invalid user.");
+
+                var song = await _context.Songs.FindAsync(songId);
+                if (song == null)
+                    throw new ArgumentException("Song not found.");
+
+                var history = new ListeningHistory
+                {
+                    UserID = user.UserID,
+                    SongId = songId,
+                    PlayedAt = DateTime.UtcNow,
+                    DeviceInfo = deviceInfo ?? "Unknown"
+                };
+
+                song.PlayCount = song.PlayCount + 1;
                 _context.ListeningHistories.Add(history);
                 await _context.SaveChangesAsync();
                 Console.WriteLine($"History added: UserID={user.UserID}, SongID={songId}, Device={deviceInfo}");
