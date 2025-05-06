@@ -42,6 +42,20 @@ namespace SpotifyAPI.Controllers
             return Ok(artist);
         }
 
+        [HttpGet("getArtistByUser")]
+        public async Task<ActionResult<List<ArtistInfoDTO>>> getArtistByUser()
+        {
+            var firebaseUid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var artist = await _artistInfoService.GetFollowedArtistsByUserAsync(firebaseUid);
+            if (artist == null)
+            {
+                return NotFound(new { message = "Artist not found" });
+            }
+            return Ok(artist);
+        }
+
+
         // GET: api/artist/details/{artistName}
         [HttpGet("related/{artistName}")]
         public async Task<ActionResult<ArtistWithSongsDto>> GetArtistWithSongs(string artistName)
