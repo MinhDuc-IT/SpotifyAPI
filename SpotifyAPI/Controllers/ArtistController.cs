@@ -48,6 +48,7 @@ namespace SpotifyAPI.Controllers
             var firebaseUid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var artist = await _artistInfoService.GetFollowedArtistsByUserAsync(firebaseUid);
+
             if (artist == null)
             {
                 return NotFound(new { message = "Artist not found" });
@@ -55,6 +56,19 @@ namespace SpotifyAPI.Controllers
             return Ok(artist);
         }
 
+        [HttpGet("infoId/{artistId}")]
+        [Authorize]
+        public async Task<ActionResult<ArtistInfoDTO>> GetArtistInfoByArtistId(int artistId)
+        {
+            var firebaseUid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var artist = await _artistInfoService.GetArtistInfoByArtistId(artistId, firebaseUid);
+            if (artist == null)
+            {
+                return NotFound(new { message = "Artist not found" });
+            }
+            return Ok(artist);
+        }
 
         // GET: api/artist/details/{artistName}
         [HttpGet("related/{artistName}")]
@@ -67,6 +81,27 @@ namespace SpotifyAPI.Controllers
                 return NotFound(new { message = "Artist not found" });
             }
             return Ok(artistWithSongs);
+        }
+
+        [HttpGet("{id}/songs")]
+        public async Task<ActionResult<List<SongDto>>> GetSongsByArtist(int id)
+        {
+            var songs = await _artistInfoService.GetSongWithArtist(id);
+
+            return Ok(songs);
+        }
+
+        [HttpGet("{id}/stats")]
+        public async Task<IActionResult> GetArtistStats(int id)
+        {
+            var artistStats = await _artistInfoService.GetArtistStatsByIdAsync(id);
+
+            if (artistStats == null)
+            {
+                return NotFound(new { message = "Artist not found" });
+            }
+
+            return Ok(artistStats);
         }
     }
 }
