@@ -40,6 +40,18 @@ namespace SpotifyAPI.Controllers
             return Ok("UserController is working!");
         }
 
+        [Authorize(Roles = "User")]
+        [HttpGet("getAllPlayList")]
+        public async Task<ActionResult<List<PlayListDTO>>> GetAllPlaylistsByUser()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            string userId = userIdClaim.Value;
+            var playlists = await _playlistService.GetPlaylistsByUserIdAsync(userId);
+            return Ok(playlists);
+        }
 
         [HttpDelete("delete-playlist/{playlistId}")]
         public async Task<IActionResult> DeletePlaylist(int playlistId)

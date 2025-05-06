@@ -22,6 +22,9 @@ namespace SpotifyAPI.Services
         //List<LyricResponseDTO> ParseLyricLines(string[] lines);
         Task<Song> CreateLyricAsync(int songId, CreateLyricDTO lyricDTO);
         Task<FileCallbackResult?> StreamSongAsync(int songId);
+        Task<List<SongDto>> GetSongsByArtistAsync(int artistId);
+        Task<List<SongDto>> GetTopPlayedSongsAsync(int topN);
+
 
 
     }
@@ -41,6 +44,47 @@ namespace SpotifyAPI.Services
             _httpClient = httpClientFactory.CreateClient();
 
         }
+
+        public async Task<List<SongDto>> GetTopPlayedSongsAsync(int topN = 10)
+        {
+            return await _context.Songs
+                .OrderByDescending(s => s.PlayCount)
+                .Take(topN)
+                .Select(s => new SongDto
+                {
+                    SongId = s.SongID,
+                    Title = s.SongName,
+                    ArtistName = s.Artist.ArtistName,
+                    Album = s.Album != null ? s.Album.AlbumName : null,
+                    AlbumID = s.AlbumID,
+                    ThumbnailUrl = s.Image,
+                    Duration = s.Duration,
+                    AudioUrl = s.Audio
+                })
+                .ToListAsync();
+        }
+
+
+        public async Task<List<SongDto>> GetSongsByArtistAsync(int artistId)
+        {
+            var songs = await _context.Songs
+                .Where(s => s.ArtistID == artistId)
+                .Select(s => new SongDto
+                {
+                    SongId = s.SongID,
+                    Title = s.SongName,
+                    ArtistName = s.Artist.ArtistName,
+                    Album = s.Album != null ? s.Album.AlbumName : null,
+                    AlbumID = s.AlbumID,
+                    ThumbnailUrl = s.Image,
+                    Duration = s.Duration,
+                    AudioUrl = s.Audio
+                })
+                .ToListAsync();
+
+            return songs;
+        }
+
 
         public async Task<object> GetAllSongsAsync(int page, int limit, string uid)
         {

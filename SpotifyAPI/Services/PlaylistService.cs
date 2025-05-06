@@ -16,7 +16,7 @@ namespace SpotifyAPI.Services
         Task<bool> AddSongToPlaylistAsync(string userIdToken, AddSongToPlaylistDto dto);
         Task<bool> RemoveSongFromPlaylistAsync(string userIdToken, RemoveSongFromPlaylistDto dto);
         Task<bool> DeletePlaylistAsync(string userIdToken, int playlistId);
-
+        Task<List<PlayListDTO>> GetPlaylistsByUserIdAsync(string userId);
     }
 
     public class PlaylistService : IPlaylistService
@@ -26,6 +26,37 @@ namespace SpotifyAPI.Services
         public PlaylistService(SpotifyDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<PlayListDTO>> GetPlaylistsByUserIdAsync(string userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userId);
+            if (user == null)
+                return null;
+
+            return await _context.Playlists
+                .Where(p => p.UserID == user.UserID)
+                .Include(p => p.PlaylistSongs)
+                    .ThenInclude(ps => ps.Song)
+                .Select(p => new PlayListDTO
+                {
+                    PlaylistID = p.PlaylistID,
+                    PlaylistName = p.PlaylistName,
+                    CreatedDate = p.CreatedDate,
+                    Description = p.Description,
+                    IsPublic = p.IsPublic,
+                    Songs = p.PlaylistSongs.Select(ps => new PlayListSongDTO
+                    {
+                        SongID = ps.Song.SongID,
+                        SongName = ps.Song.SongName,
+                        Audio = ps.Song.Audio,
+                        Duration = ps.Song.Duration,
+                        LyricUrl = ps.Song.LyricUrl,
+                        Image = ps.Song.Image,
+                        ArtistName = ps.Song.Artist.ArtistName
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<Playlist> CreatePlaylistAsync(string userIdToken, CreatePlaylistDto dto)
