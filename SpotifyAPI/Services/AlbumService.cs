@@ -13,6 +13,8 @@ namespace SpotifyAPI.Services
     public interface IAlbumService
     {
         Task<List<SongDto>> GetSongsByAlbumIdAsync(int albumId);
+        Task<List<AlbumDto>> GetAlbumsFromLikedSongsAsync(string userIdToken);
+
     }
 
     public class AlbumService : IAlbumService
@@ -22,6 +24,34 @@ namespace SpotifyAPI.Services
         public AlbumService(SpotifyDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<AlbumDto>> GetAlbumsFromLikedSongsAsync(string userIdToken)
+        {
+            var user = await _context.Users
+                .Include(u => u.LikedSongs)
+                    .ThenInclude(ls => ls.Song)
+                        .ThenInclude(s => s.Album)
+                            .ThenInclude(a => a.Artist)
+                .FirstOrDefaultAsync(u => u.FullName == userIdToken);
+
+
+            if (user == null) return null;
+
+            var albums = user.LikedSongs
+                .Where(ls => ls.Song.Album != null)
+                .Select(ls => ls.Song.Album)
+                .Distinct()
+                .Select(album => new AlbumDto
+                {
+                    AlbumId = album.AlbumID,
+                    AlbumName = album.AlbumName,
+                    ArtistName = album.Artist.ArtistName,
+                    ThumbnailUrl = album.Image
+                })
+                .ToList();
+
+            return albums;
         }
 
         public async Task<List<SongDto>> GetSongsByAlbumIdAsync(int albumId)
