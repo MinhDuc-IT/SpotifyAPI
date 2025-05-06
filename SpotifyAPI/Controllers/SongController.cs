@@ -27,6 +27,24 @@ namespace SpotifyAPI.Controllers
             _notificationService = notificationService;
         }
 
+        [HttpGet("top-played")]
+        public async Task<IActionResult> GetTopPlayedSongs([FromQuery] int top = 10)
+        {
+            var songs = await _songService.GetTopPlayedSongsAsync(top);
+            return Ok(songs);
+        }
+
+
+        [HttpGet("by-artist/{artistId}")]
+        public async Task<IActionResult> GetSongsByArtist(int artistId)
+        {
+            var songs = await _songService.GetSongsByArtistAsync(artistId);
+            if (songs == null || !songs.Any())
+                return NotFound("No songs found for this artist.");
+
+            return Ok(songs);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllSong(int page = 1, int limit = 10)
         {
