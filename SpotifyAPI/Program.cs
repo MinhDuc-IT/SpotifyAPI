@@ -114,11 +114,11 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IArtistInfoService, ArtistInfoService>();
 builder.Services.AddScoped<IArtistFollowService, ArtistFollowService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
-<<<<<<< HEAD
+
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-=======
+
 builder.Services.AddScoped<VnPayService>();
->>>>>>> main
+
 
 builder.Services.AddScoped<CloudinaryService>();
 
