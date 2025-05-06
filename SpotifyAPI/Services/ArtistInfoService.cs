@@ -7,6 +7,7 @@ namespace SpotifyAPI.Services
     public interface IArtistInfoService
     {
         Task<ArtistInfoDTO?> GetArtistInfo(string artistName, string? firebaseUid);
+        Task<List<ArtistInfoDTO>> GetFollowedArtistsByUserAsync(string firebaseUid);
         Task<List<ArtistWithSongsDto>> GetArtistsWithSongs(string artistName);
     }
 
@@ -51,6 +52,34 @@ namespace SpotifyAPI.Services
                 IsFollowed = isFollowed,
             };
         }
+
+        public async Task<List<ArtistInfoDTO>> GetFollowedArtistsByUserAsync(string firebaseUid)
+        {
+            var user = await _context.Users
+                .Include(u => u.ArtistFollows)
+                    .ThenInclude(af => af.Artist)
+                .FirstOrDefaultAsync(u => u.FirebaseUid == firebaseUid);
+
+            if (user == null)
+            {
+                return new List<ArtistInfoDTO>();
+            }
+
+            var followedArtists = user.ArtistFollows
+                .Select(af => new ArtistInfoDTO
+                {
+                    ArtistID = af.Artist.ArtistID,
+                    ArtistName = af.Artist.ArtistName,
+                    Bio = af.Artist.Bio,
+                    Image = af.Artist.Image,
+                    FormedDate = af.Artist.FormedDate,
+                    IsFollowed = true
+                })
+                .ToList();
+
+            return followedArtists;
+        }
+
 
         //public async Task<ArtistWithSongsDto?> GetArtistWithSongs(string artistName)
         //{
