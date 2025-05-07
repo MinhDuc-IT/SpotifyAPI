@@ -483,3 +483,9 @@ packages/
 
 artifacts/
 
+# giữ lại launchSettings.json
+!**/launchSettings.json
+
+# giữ lại launchSettings.json
+!**/appsettings.json
+

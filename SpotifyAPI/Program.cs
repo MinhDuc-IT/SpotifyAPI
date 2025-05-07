@@ -28,7 +28,7 @@ builder.Services.AddDbContext<SpotifyDbContext>(options =>
 FirebaseApp.Create(new AppOptions()
 {
 
-    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
+    Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-d42de84563.json"),
 
     //Credential = GoogleCredential.FromFile("spotifyapp-efafb-firebase-adminsdk-fbsvc-3eb01a5f4c.json"),
 
@@ -114,16 +114,11 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IArtistInfoService, ArtistInfoService>();
 builder.Services.AddScoped<IArtistFollowService, ArtistFollowService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
-<<<<<<< HEAD
 
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 builder.Services.AddScoped<VnPayService>();
 
-=======
-builder.Services.AddScoped<IPlaylistService, PlaylistService>();
-builder.Services.AddScoped<VnPayService>();
->>>>>>> e4add7f4ff7acc96aa809e4073f3d869af49be80
 
 builder.Services.AddScoped<CloudinaryService>();
 
