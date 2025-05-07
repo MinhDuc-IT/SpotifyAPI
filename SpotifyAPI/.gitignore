@@ -485,3 +485,10 @@ FodyWeavers.xsd
 # giữ lại launchSettings.json
 !**/launchSettings.json
 
+# giữ lại launchSettings.json
+!**/appsettings.json
+
+**/Debug/
+**/Release/
+**/net9.0/
+
