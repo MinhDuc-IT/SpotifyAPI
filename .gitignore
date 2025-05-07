@@ -489,3 +489,8 @@ artifacts/
 # giữ lại launchSettings.json
 !**/appsettings.json
 
+**/Debug/
+**/Release/
+**/net9.0/
+
+
