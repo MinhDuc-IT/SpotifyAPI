@@ -31,7 +31,7 @@ namespace SpotifyAPI.Services
 
         public async Task<List<int>> GetLikedSongIdsAsync(string userIdToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == userIdToken);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
             if (user == null) return new List<int>();
 
             return await _context.LikedSongs
