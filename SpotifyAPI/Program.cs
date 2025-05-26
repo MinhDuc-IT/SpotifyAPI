@@ -114,7 +114,8 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IArtistInfoService, ArtistInfoService>();
 builder.Services.AddScoped<IArtistFollowService, ArtistFollowService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
-
+builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<ISongGenreService, SongGenreService>();
 //builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 //builder.Services.AddScoped<VnPayService>();
