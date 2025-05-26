@@ -33,7 +33,7 @@ namespace SpotifyAPI.Services
                     .ThenInclude(ls => ls.Song)
                         .ThenInclude(s => s.Album)
                             .ThenInclude(a => a.Artist)
-                .FirstOrDefaultAsync(u => u.FullName == userIdToken);
+                .FirstOrDefaultAsync(u => u.FirebaseUid == userIdToken);
 
 
             if (user == null) return null;
