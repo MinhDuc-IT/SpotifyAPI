@@ -6,6 +6,7 @@ namespace SpotifyAPI.DTOs
     {
         public int GenreId { get; set; }
         public string GenreName { get; set; }
+        public string? Image { get; set; }
         public IEnumerable<SongDto> Songs { get; set; }
     }
 
