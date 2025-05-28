@@ -27,27 +27,12 @@ namespace SpotifyAPI.Services
         public async Task<List<GenreDto>> GetAllGenresAsync()
         {
             return await _context.Genres
-                .Include(g => g.SongGenres)
-                    .ThenInclude(sg => sg.Song)
-                        .ThenInclude(s => s.Artist)
-                .Include(g => g.SongGenres)
-                    .ThenInclude(sg => sg.Song)
-                        .ThenInclude(s => s.Album)
                 .Select(g => new GenreDto
                 {
                     GenreId = g.GenreId,
                     GenreName = g.GenreName,
-                    Songs = g.SongGenres.Select(sg => new SongDto
-                    {
-                        SongId = sg.Song.SongID,
-                        Title = sg.Song.SongName,  
-                        ArtistName = sg.Song.Artist.ArtistName,
-                        Album = sg.Song.Album.AlbumName,
-                        AlbumID = sg.Song.AlbumID,
-                        ThumbnailUrl = sg.Song.Image,
-                        Duration = sg.Song.Duration,
-                        AudioUrl = sg.Song.Audio
-                    }).ToList()
+                    Image = g.Image,
+                    Songs = null
                 }).ToListAsync();
         }
 
@@ -68,6 +53,7 @@ namespace SpotifyAPI.Services
             {
                 GenreId = genre.GenreId,
                 GenreName = genre.GenreName,
+                Image = genre.Image,
                 Songs = genre.SongGenres.Select(sg => new SongDto
                 {
                     SongId = sg.Song.SongID,
