@@ -10,6 +10,8 @@ namespace SpotifyAPI.Models
         [Required]
         [MaxLength(100)]
         public string GenreName { get; set; }
+        public string? Image { get; set; }
+
         public ICollection<SongGenre> SongGenres { get; set; } = new List<SongGenre>();
 
     }
