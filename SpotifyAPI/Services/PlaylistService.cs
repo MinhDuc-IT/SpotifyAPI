@@ -12,7 +12,7 @@ namespace SpotifyAPI.Services
 {
     public interface IPlaylistService
     {
-        Task<Playlist> CreatePlaylistAsync(string userIdToken, CreatePlaylistDto dto);
+        Task<PlayListDTO2> CreatePlaylistAsync(string userIdToken, CreatePlaylistDto dto);
         Task<bool> AddSongToPlaylistAsync(string userIdToken, AddSongToPlaylistDto dto);
         Task<bool> RemoveSongFromPlaylistAsync(string userIdToken, RemoveSongFromPlaylistDto dto);
         Task<bool> DeletePlaylistAsync(string userIdToken, int playlistId);
@@ -59,23 +59,30 @@ namespace SpotifyAPI.Services
                 .ToListAsync();
         }
 
-        public async Task<Playlist> CreatePlaylistAsync(string userIdToken, CreatePlaylistDto dto)
+        public async Task<PlayListDTO2> CreatePlaylistAsync(string userIdToken, CreatePlaylistDto dto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == userIdToken);
             if (user == null) return null;
 
             var playlist = new Playlist
             {
-                PlaylistName = dto.PlaylistName,
-                Description = dto.Description,
-                IsPublic = dto.IsPublic,
+                PlaylistName = dto.Name,
+                //Description = dto.Description,
+                //IsPublic = dto.IsPublic,
                 CreatedDate = DateTime.UtcNow,
                 UserID = user.UserID
             };
 
             _context.Playlists.Add(playlist);
             await _context.SaveChangesAsync();
-            return playlist;
+            return new PlayListDTO2
+            {
+                PlaylistID = playlist.PlaylistID,
+                PlaylistName = playlist.PlaylistName,
+                CreatedDate = playlist.CreatedDate,
+                Description = playlist.Description,
+                IsPublic = playlist.IsPublic
+            };
         }
 
         public async Task<bool> DeletePlaylistAsync(string userIdToken, int playlistId)
