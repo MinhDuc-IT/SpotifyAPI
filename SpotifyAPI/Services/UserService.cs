@@ -289,18 +289,27 @@ namespace SpotifyAPI.Services
         public async Task<UserSubscriptionDto> GetSubscriptionTypeAsync(string firebaseId)
         {
             var user = await _context.Users
-                .Where(u => u.FirebaseUid == firebaseId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(u => u.FirebaseUid == firebaseId);
 
             if (user == null)
             {
                 throw new Exception("User not found");
             }
 
+            // Tìm subscription còn hiệu lực
             var userSubscription = await _context.UserSubscriptions
-                .Where(us => us.UserID == user.UserID)
+                .Where(us => us.UserID == user.UserID && us.EndDate.HasValue && us.EndDate.Value > DateTimeOffset.UtcNow)
                 .OrderByDescending(us => us.EndDate)
                 .FirstOrDefaultAsync();
+
+            var temp = user.SubscriptionType;
+            var newType = userSubscription == null ? "Free" : "Premium";
+
+            if (!string.Equals(temp, newType, StringComparison.Ordinal))
+            {
+                user.SubscriptionType = newType;
+                await _context.SaveChangesAsync();
+            }
 
             return new UserSubscriptionDto
             {
